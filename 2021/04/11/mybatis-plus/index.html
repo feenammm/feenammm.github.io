@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <title>mybatis-plus | Hexo</title>
+  <meta name="description" content="mybatis-plus简化mybatis开发,对mybatis进行增强,不进行改变 特性 无侵入：只做增强不做改变，引入它不会对现有工程产生影响，如丝般顺滑 损耗小：启动即会自动注入基本 CURD，性能基本无损耗，直接面向对象操作 强大的 CRUD 操作：内置通用 Mapper、通用 Service，仅仅通过少量配置即可实现单表大部分 CRUD 操作，更有强大的条件构造器，满足各类使用需求 支持">
+<meta property="og:type" content="article">
+<meta property="og:title" content="mybatis-plus">
+<meta property="og:url" content="http://example.com/2021/04/11/mybatis-plus/index.html">
+<meta property="og:site_name" content="阿巴巴巴">
+<meta property="og:description" content="mybatis-plus简化mybatis开发,对mybatis进行增强,不进行改变 特性 无侵入：只做增强不做改变，引入它不会对现有工程产生影响，如丝般顺滑 损耗小：启动即会自动注入基本 CURD，性能基本无损耗，直接面向对象操作 强大的 CRUD 操作：内置通用 Mapper、通用 Service，仅仅通过少量配置即可实现单表大部分 CRUD 操作，更有强大的条件构造器，满足各类使用需求 支持">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/2021/04/11/mybatis-plus/img/mybatisplus/image-20210414212830705.png">
+<meta property="og:image" content="http://example.com/2021/04/11/mybatis-plus/img/mybatis-plus/image-20210415150242376.png">
+<meta property="article:published_time" content="2021-04-11T12:51:41.000Z">
+<meta property="article:modified_time" content="2021-04-16T06:19:40.362Z">
+<meta property="article:author" content="wxy">
+<meta property="article:tag" content="mybatis">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2021/04/11/mybatis-plus/img/mybatisplus/image-20210414212830705.png">
+  <!-- Canonical links -->
+  <link rel="canonical" href="http://example.com/2021/04/11/mybatis-plus/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="阿巴巴巴" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+  
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body class="main-center no-sidebar" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/feenammm" target="_blank">
+          <img class="img-circle img-rotate" src="/images/logo.jpg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm"></h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md"></h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">归档</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">分类</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">标签</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-repository">
+          <a href="/repository">
+            
+            <i class="icon icon-project"></i>
+            
+            <span class="menu-title">项目</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links">
+            
+            <i class="icon icon-friendship"></i>
+            
+            <span class="menu-title">友链</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/feenammm" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>欢迎交流与分享经验!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/mybatis/">mybatis</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/mysql/">mysql</a><span class="category-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget-body">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/mybatis/" rel="tag">mybatis</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/" rel="tag">mysql</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/mybatis/" style="font-size: 13px;">mybatis</a> <a href="/tags/mysql/" style="font-size: 13px;">mysql</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">四月 2021</a><span class="archive-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/mysql/">mysql</a>
+              </p>
+              <p class="item-title">
+                <a href="/2021/04/11/mysql/" class="title">mysql</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-04-11T12:51:41.000Z" itemprop="datePublished">2021-04-11</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/mybatis/">mybatis</a>
+              </p>
+              <p class="item-title">
+                <a href="/2021/04/11/mybatis-plus/" class="title">mybatis-plus</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-04-11T12:51:41.000Z" itemprop="datePublished">2021-04-11</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<aside class="sidebar sidebar-toc collapse" id="collapseToc" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    <nav id="toc" class="article-toc">
+      <h3 class="toc-title">文章目录</h3>
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#mybatis-plus"><span class="toc-number">1.</span> <span class="toc-text">mybatis-plus</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%89%B9%E6%80%A7"><span class="toc-number">2.</span> <span class="toc-text">特性</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BE%9D%E8%B5%96"><span class="toc-number">3.</span> <span class="toc-text">依赖</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8"><span class="toc-number">4.</span> <span class="toc-text">使用</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E6%97%A5%E5%BF%97"><span class="toc-number">5.</span> <span class="toc-text">配置日志</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%96%B9%E6%B3%95"><span class="toc-number">6.</span> <span class="toc-text">方法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9F%A5%E8%AF%A2"><span class="toc-number">6.1.</span> <span class="toc-text">查询</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%95%E4%B8%AA%E6%9F%A5%E8%AF%A2"><span class="toc-number">6.1.1.</span> <span class="toc-text">单个查询</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E8%AF%A2%E5%A4%9A%E4%B8%AA"><span class="toc-number">6.1.2.</span> <span class="toc-text">查询多个</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9D%A1%E4%BB%B6%E6%9F%A5%E8%AF%A2"><span class="toc-number">6.1.3.</span> <span class="toc-text">条件查询</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%86%E9%A1%B5%E6%9F%A5%E8%AF%A2"><span class="toc-number">6.2.</span> <span class="toc-text">分页查询</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%A0%E9%99%A4"><span class="toc-number">6.3.</span> <span class="toc-text">删除</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%BB%E8%BE%91%E5%88%A0%E9%99%A4"><span class="toc-number">6.3.1.</span> <span class="toc-text">逻辑删除</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8F%92%E5%85%A5"><span class="toc-number">6.4.</span> <span class="toc-text">插入</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#insert"><span class="toc-number">6.4.1.</span> <span class="toc-text">insert</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BB%E9%94%AE%E7%94%9F%E6%88%90%E7%AD%96%E7%95%A5"><span class="toc-number">6.4.2.</span> <span class="toc-text">主键生成策略</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%9B%AA%E8%8A%B1%E7%AE%97%E6%B3%95"><span class="toc-number">6.4.2.1.</span> <span class="toc-text">雪花算法</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9B%B4%E6%96%B0"><span class="toc-number">6.5.</span> <span class="toc-text">更新</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%87%AA%E5%8A%A8%E5%A1%AB%E5%85%85"><span class="toc-number">6.5.1.</span> <span class="toc-text">自动填充</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B9%90%E8%A7%82%E9%94%81"><span class="toc-number">6.6.</span> <span class="toc-text">乐观锁</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#MP%E6%93%8D%E4%BD%9C"><span class="toc-number">6.6.1.</span> <span class="toc-text">MP操作</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9D%A1%E4%BB%B6%E6%9E%84%E9%80%A0%E5%99%A8"><span class="toc-number">6.7.</span> <span class="toc-text">条件构造器</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90%E6%8F%92%E4%BB%B6"><span class="toc-number">7.</span> <span class="toc-text">性能分析插件</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E8%87%AA%E5%8A%A8%E7%94%9F%E6%88%90"><span class="toc-number">8.</span> <span class="toc-text">代码自动生成</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#mybatis-generator"><span class="toc-number">8.1.</span> <span class="toc-text">mybatis-generator</span></a></li></ol></li></ol>
+    </nav>
+  </div>
+</aside>
+
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-mybatis-plus" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      mybatis-plus
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2021/04/11/mybatis-plus/" class="article-date">
+	  <time datetime="2021-04-11T12:51:41.000Z" itemprop="datePublished">2021-04-11</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/mybatis/">mybatis</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/mybatis/" rel="tag">mybatis</a>
+  </span>
+
+
+        
+	<span class="article-read hidden-xs">
+	    <i class="icon icon-eye-fill" aria-hidden="true"></i>
+	    <span id="busuanzi_container_page_pv">
+			<span id="busuanzi_value_page_pv">0</span>
+		</span>
+	</span>
+
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/04/11/mybatis-plus/#comments" class="article-comment-link">评论</a></span>
+        
+	
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 3.3k(字)</span>
+	
+	
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 15(分)</span>
+	
+
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <h1 id="mybatis-plus"><a href="#mybatis-plus" class="headerlink" title="mybatis-plus"></a>mybatis-plus</h1><p>简化mybatis开发,对mybatis进行增强,不进行改变</p>
+<h1 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h1><ul>
+<li><strong>无侵入</strong>：只做增强不做改变，引入它不会对现有工程产生影响，如丝般顺滑</li>
+<li><strong>损耗小</strong>：启动即会自动注入基本 CURD，性能基本无损耗，直接面向对象操作</li>
+<li><strong>强大的 CRUD 操作</strong>：内置通用 Mapper、通用 Service，仅仅通过少量配置即可实现单表大部分 CRUD 操作，更有强大的条件构造器，满足各类使用需求</li>
+<li><strong>支持 Lambda 形式调用</strong>：通过 Lambda 表达式，方便的编写各类查询条件，无需再担心字段写错</li>
+<li><strong>支持主键自动生成</strong>：支持多达 4 种主键策略（内含分布式唯一 ID 生成器 - Sequence），可自由配置，完美解决主键问题</li>
+<li><strong>支持 ActiveRecord 模式</strong>：支持 ActiveRecord 形式调用，实体类只需继承 Model 类即可进行强大的 CRUD 操作</li>
+<li><strong>支持自定义全局通用操作</strong>：支持全局通用方法注入（ Write once, use anywhere ）</li>
+<li><strong>内置代码生成器</strong>：采用代码或者 Maven 插件可快速生成 Mapper 、 Model 、 Service 、 Controller 层代码，支持模板引擎，更有超多自定义配置等您来使用</li>
+<li><strong>内置分页插件</strong>：基于 MyBatis 物理分页，开发者无需关心具体操作，配置好插件之后，写分页等同于普通 List 查询</li>
+<li><strong>分页插件支持多种数据库</strong>：支持 MySQL、MariaDB、Oracle、DB2、H2、HSQL、SQLite、Postgre、SQLServer 等多种数据库</li>
+<li><strong>内置性能分析插件</strong>：可输出 Sql 语句以及其执行时间，建议开发测试时启用该功能，能快速揪出慢查询</li>
+<li><strong>内置全局拦截插件</strong>：提供全表 delete 、 update 操作智能分析阻断，也可自定义拦截规则，预防误操作</li>
+</ul>
+<h1 id="依赖"><a href="#依赖" class="headerlink" title="依赖"></a>依赖</h1><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>mysql<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mysql-connector-java<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.projectlombok<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>lombok<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.baomidou<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mybatis-plus-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.4.2<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>不要同时导入mybatis和mybatis-plus</p>
+<h1 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h1><ol>
+<li><p>编写Dao,继承BaseMapper<T></p>
+<p>继承了 BaseMapper 就完成了基本的crud</p>
+</li>
+<li><p>添加 @Mapper 或者 @Repository 表示为 Dao 层</p>
+</li>
+<li><p>添加启动类扫描 Mapper 包下的所有接口</p>
+<p>@MapperScan(“com.wxy.dao”)</p>
+</li>
+</ol>
+<h1 id="配置日志"><a href="#配置日志" class="headerlink" title="配置日志"></a>配置日志</h1><p>控制台打印:</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mybatis-plus:</span><br><span class="line">  configuration:</span><br><span class="line">    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl</span><br></pre></td></tr></table></figure>
+
+<h1 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h1><h2 id="查询"><a href="#查询" class="headerlink" title="查询"></a>查询</h2><h3 id="单个查询"><a href="#单个查询" class="headerlink" title="单个查询"></a>单个查询</h3><ol>
+<li>selectById()</li>
+<li>selectOne()</li>
+</ol>
+<h3 id="查询多个"><a href="#查询多个" class="headerlink" title="查询多个"></a>查询多个</h3><ol>
+<li>selectBatchIds(Arrays.asList(1,2,3))</li>
+<li>selectList()</li>
+</ol>
+<h3 id="条件查询"><a href="#条件查询" class="headerlink" title="条件查询"></a>条件查询</h3><ol>
+<li><p>selectByMap()</p>
+<p>通过map自定义查询条件</p>
+</li>
+</ol>
+<h2 id="分页查询"><a href="#分页查询" class="headerlink" title="分页查询"></a>分页查询</h2><ol>
+<li><p>编写分页插件配置</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.wxy.config.mybatisPlus;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.mybatis.spring.annotation.MapperScan;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Bean;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Configuration;</span><br><span class="line"><span class="keyword">import</span> org.springframework.transaction.annotation.EnableTransactionManagement;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;</span><br><span class="line"><span class="keyword">import</span> com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;</span><br><span class="line"></span><br><span class="line"><span class="meta">@EnableTransactionManagement</span></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyBatisPlusConfig</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> MybatisPlusInterceptor <span class="title">mybatisPlusInterceptor</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">final</span> MybatisPlusInterceptor mybatisPlusInterceptor = <span class="keyword">new</span> MybatisPlusInterceptor();</span><br><span class="line"></span><br><span class="line">        <span class="comment">//分页配置</span></span><br><span class="line">        mybatisPlusInterceptor.addInnerInterceptor(<span class="keyword">new</span> PaginationInnerInterceptor());</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> mybatisPlusInterceptor;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>使用</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testpage</span><span class="params">()</span></span>&#123;</span><br><span class="line">    Page&lt;User&gt; page = <span class="keyword">new</span> Page&lt;&gt;(<span class="number">1</span>,<span class="number">5</span>);</span><br><span class="line">    userMapper.selectPage(page,<span class="keyword">null</span>);</span><br><span class="line"></span><br><span class="line">    page.getRecords().forEach(System.out::println);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h2><ol>
+<li>deleteById()</li>
+<li>deleteByMap()</li>
+<li>deleteBatchId(Arrays.asList(1,2,3))</li>
+</ol>
+<h3 id="逻辑删除"><a href="#逻辑删除" class="headerlink" title="逻辑删除"></a>逻辑删除</h3><ol>
+<li><p>添加 deleted 字段</p>
+</li>
+<li><p>实体类中添加注解 @TableLogic 逻辑删除注解</p>
+</li>
+<li><p>配置逻辑删除组件</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">mybatis-plus:</span><br><span class="line">  global-config:</span><br><span class="line">    db-config:</span><br><span class="line">      logic-delete-field: deleted  # 全局逻辑删除的实体字段名(since 3.3.0,配置后可以忽略不配置步骤2)</span><br><span class="line">      logic-delete-value: 1 # 逻辑已删除值(默认为 1)</span><br><span class="line">      logic-not-delete-value: 0 # 逻辑未删除值(默认为 0)</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="插入"><a href="#插入" class="headerlink" title="插入"></a>插入</h2><h3 id="insert"><a href="#insert" class="headerlink" title="insert"></a>insert</h3><p>自动生成全局唯一id并回填</p>
+<h3 id="主键生成策略"><a href="#主键生成策略" class="headerlink" title="主键生成策略"></a>主键生成策略</h3><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/haoxinyue/p/5208136.html">分布式系统唯一ID生成方案汇总 </a></p>
+<blockquote>
+<p>默认 ID_WORKER 全局唯一ID</p>
+<p>@TableId(type = IdType.ID_WORKER )</p>
+</blockquote>
+<h4 id="雪花算法"><a href="#雪花算法" class="headerlink" title="雪花算法"></a>雪花算法</h4><p>Twitter开源的分布式ID生成算法,结果是long型的.</p>
+<p>使用41bit作为毫秒数,10bit作为机器ID(5bit数据中心,5bit机器ID),12bit作为毫秒内的流水号(每个节点每毫秒可以产生4096个ID),1bit符号为(永远为0)</p>
+<blockquote>
+<p>主键自增</p>
+<p>@TableId(type = IdType.AUTO)</p>
+</blockquote>
+<ol>
+<li>实体类上添加 @TableId(type = IdType.AUTO) 注解</li>
+<li>数据库字段是自增的</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>值</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>AUTO</td>
+<td>数据库自增(mysql)</td>
+</tr>
+<tr>
+<td>NONE</td>
+<td>无主键ID</td>
+</tr>
+<tr>
+<td>INPUT</td>
+<td>自定义输入</td>
+</tr>
+<tr>
+<td>ASSIGN_ID</td>
+<td>雪花算法,主键可以是Long,Integer,String类型</td>
+</tr>
+<tr>
+<td>ASSIGN_UUID</td>
+<td>不含中划线的UUID,主键是String类型</td>
+</tr>
+</tbody></table>
+<h2 id="更新"><a href="#更新" class="headerlink" title="更新"></a>更新</h2><p>updateById()    </p>
+<p>通过条件自动动态配置sql,参数是对应的对象</p>
+<h3 id="自动填充"><a href="#自动填充" class="headerlink" title="自动填充"></a>自动填充</h3><blockquote>
+<p>数据库</p>
+</blockquote>
+<ol>
+<li><p>在表中新增字段 create_time   update_time ,设置默认值(CURRENT_TIMESTAMP)</p>
+<p><img src="img/mybatisplus/image-20210414212830705.png" alt="image-20210414212830705"></p>
+</li>
+</ol>
+<blockquote>
+<p>代码</p>
+</blockquote>
+<ol>
+<li><p>实体类的字段上添加注解</p>
+<ol>
+<li>@TableField(fill = FieldFill.INSERT)                         //在新增时进行填充</li>
+<li>@TableField(fill = FieldFill.INSERT_UPDATE)        //在新增和修改时进行填充</li>
+<li>…</li>
+</ol>
+</li>
+<li><p>编写处理器处理注解</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Date;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.apache.ibatis.reflection.MetaObject;</span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Component;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyMetaObjectHandler</span> <span class="keyword">implements</span> <span class="title">MetaObjectHandler</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">insertFill</span><span class="params">(<span class="keyword">final</span> MetaObject metaObject)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">this</span>.setFieldValByName(<span class="string">&quot;createTime&quot;</span>, <span class="keyword">new</span> Date(), metaObject);</span><br><span class="line">        <span class="keyword">this</span>.setFieldValByName(<span class="string">&quot;updateTime&quot;</span>, <span class="keyword">new</span> Date(), metaObject);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">updateFill</span><span class="params">(<span class="keyword">final</span> MetaObject metaObject)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">this</span>.setFieldValByName(<span class="string">&quot;updateTime&quot;</span>, <span class="keyword">new</span> Date(), metaObject);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="乐观锁"><a href="#乐观锁" class="headerlink" title="乐观锁"></a>乐观锁</h2><p>乐观锁 : 认为不会出现问题,无论干什么都不会加锁.如果出问题,再次更新</p>
+<p>悲观锁 : 认为总是会出现问题,无论干什么都会去加锁,然后去操作</p>
+<p>乐观锁实现方式：</p>
+<ol>
+<li>取出记录时，获取当前 version</li>
+<li>更新时，带上这个version</li>
+<li>执行更新时， set version = newVersion where version = oldVersion</li>
+<li>如果version不对，就更新失败</li>
+</ol>
+<h3 id="MP操作"><a href="#MP操作" class="headerlink" title="MP操作"></a>MP操作</h3><ol>
+<li><p>添加 version 字段,默认值为 1</p>
+</li>
+<li><p>实体类添加对应字段,添加 @Version 乐观锁注解</p>
+</li>
+<li><p>注册组件</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.wxy.config.mybatisPlus;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Bean;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Configuration;</span><br><span class="line"><span class="keyword">import</span> org.springframework.transaction.annotation.EnableTransactionManagement;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;</span><br><span class="line"><span class="keyword">import</span> com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;</span><br><span class="line"></span><br><span class="line"><span class="meta">@EnableTransactionManagement</span></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyBatisPlusConfig</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> MybatisPlusInterceptor <span class="title">mybatisPlusInterceptor</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">final</span> MybatisPlusInterceptor mybatisPlusInterceptor = <span class="keyword">new</span> MybatisPlusInterceptor();</span><br><span class="line"></span><br><span class="line">        <span class="comment">//乐观锁</span></span><br><span class="line">        mybatisPlusInterceptor.addInnerInterceptor(<span class="keyword">new</span> OptimisticLockerInnerInterceptor());</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> mybatisPlusInterceptor;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>测试</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 测试乐观锁成功！</span></span><br><span class="line"><span class="meta">@Test</span> </span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testOptimisticLocker</span><span class="params">()</span></span>&#123; </span><br><span class="line">    <span class="comment">// 1、查询用户信息   </span></span><br><span class="line">    User user = userMapper.selectById(<span class="number">1L</span>);  </span><br><span class="line">    <span class="comment">// 2、修改用户信息 </span></span><br><span class="line">    user.setName(<span class="string">&quot;kuangshen&quot;</span>);  </span><br><span class="line">    user.setEmail(<span class="string">&quot;24736743@qq.com&quot;</span>);</span><br><span class="line">    <span class="comment">// 3、执行更新操作    </span></span><br><span class="line">    userMapper.updateById(user); </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 测试乐观锁失败！多线程下 </span></span><br><span class="line"><span class="meta">@Test</span> <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testOptimisticLocker2</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="comment">// 线程 1   </span></span><br><span class="line">    User user = userMapper.selectById(<span class="number">1L</span>);   </span><br><span class="line">    user.setName(<span class="string">&quot;kuangshen111&quot;</span>);  </span><br><span class="line">    user.setEmail(<span class="string">&quot;24736743@qq.com&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 模拟另外一个线程执行了插队操作   </span></span><br><span class="line">    User user2 = userMapper.selectById(<span class="number">1L</span>);    </span><br><span class="line">    user2.setName(<span class="string">&quot;kuangshen222&quot;</span>);  </span><br><span class="line">    user2.setEmail(<span class="string">&quot;24736743@qq.com&quot;</span>); </span><br><span class="line"></span><br><span class="line">    userMapper.updateById(user2);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 自旋锁来多次尝试提交！  </span></span><br><span class="line">    userMapper.updateById(user); </span><br><span class="line">    <span class="comment">// 如果没有乐观锁就会覆盖插队线程的值！</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="条件构造器"><a href="#条件构造器" class="headerlink" title="条件构造器"></a>条件构造器</h2><p>Wrapper</p>
+<p>QueryWrapper    LambdaQueryWrapper</p>
+<p>UpdateWrapper  LambdaUpdateWrapper</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ge</td>
+<td>大于等于</td>
+</tr>
+<tr>
+<td>gt</td>
+<td>大于</td>
+</tr>
+<tr>
+<td>le</td>
+<td>小于等于</td>
+</tr>
+<tr>
+<td>lt</td>
+<td>小于</td>
+</tr>
+<tr>
+<td>isNull</td>
+<td>空</td>
+</tr>
+<tr>
+<td>isNotNull</td>
+<td>不为空</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>allEq</td>
+<td>全eq</td>
+</tr>
+<tr>
+<td>eq</td>
+<td>等于 =</td>
+</tr>
+<tr>
+<td>ne</td>
+<td>不等于 &lt;&gt;</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>说明</th>
+<th>例子</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>between</td>
+<td>BETWEEN 值1 AND 值2</td>
+<td>between(“age”, 18, 30)</td>
+</tr>
+<tr>
+<td>notBetween</td>
+<td>NOT BETWEEN 值1 AND 值2</td>
+<td></td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>like</td>
+<td>LIKE ‘%值%’</td>
+</tr>
+<tr>
+<td>notlike</td>
+<td>NOT LIKE ‘%值%’</td>
+</tr>
+<tr>
+<td>likeLeft</td>
+<td>LIKE ‘%值’</td>
+</tr>
+<tr>
+<td>likeRight</td>
+<td>LIKE ‘值%’</td>
+</tr>
+</tbody></table>
+<p><img src="img/mybatis-plus/image-20210415150242376.png" alt="image-20210415150242376"></p>
+<h1 id="性能分析插件"><a href="#性能分析插件" class="headerlink" title="性能分析插件"></a>性能分析插件</h1><ol>
+<li><p>添加插件</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**    </span></span><br><span class="line"><span class="comment">* SQL执行效率插件    </span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="meta">@Bean</span> <span class="meta">@Profile(&#123;&quot;dev&quot;,&quot;test&quot;&#125;)</span><span class="comment">// 设置 dev test 环境开启，保证我们的效率 </span></span><br><span class="line"><span class="function"><span class="keyword">public</span> PerformanceInterceptor <span class="title">performanceInterceptor</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">    PerformanceInterceptor performanceInterceptor = <span class="keyword">new</span> PerformanceInterceptor();  </span><br><span class="line">    performanceInterceptor.setMaxTime(<span class="number">100</span>); <span class="comment">// ms设置sql执行的最大时间，如果超过了则不 执行   </span></span><br><span class="line">    performanceInterceptor.setFormat(<span class="keyword">true</span>); <span class="comment">// 是否格式化代码    return performanceInterceptor;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>执行sql,执行时间超过限定会抛出异常</p>
+</li>
+<li><p>新版已更换为 p6spy </p>
+</li>
+</ol>
+<h1 id="代码自动生成"><a href="#代码自动生成" class="headerlink" title="代码自动生成"></a>代码自动生成</h1><p>依赖</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>mysql<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mysql-connector-java<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.baomidou<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mybatis-plus-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.4.2<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.baomidou<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mybatis-plus-generator<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.3.2<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.velocity<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>velocity-engine-core<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.3<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.baomidou<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mybatis-plus-extension<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.4.2<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.baomidou.mybatisplus.annotation.DbType;</span><br><span class="line"><span class="keyword">import</span> com.baomidou.mybatisplus.annotation.FieldFill;</span><br><span class="line"><span class="keyword">import</span> com.baomidou.mybatisplus.annotation.IdType;</span><br><span class="line"><span class="keyword">import</span> com.baomidou.mybatisplus.generator.AutoGenerator;</span><br><span class="line"><span class="keyword">import</span> com.baomidou.mybatisplus.generator.config.DataSourceConfig;</span><br><span class="line"><span class="keyword">import</span> com.baomidou.mybatisplus.generator.config.GlobalConfig;</span><br><span class="line"><span class="keyword">import</span> com.baomidou.mybatisplus.generator.config.PackageConfig;</span><br><span class="line"><span class="keyword">import</span> com.baomidou.mybatisplus.generator.config.StrategyConfig;</span><br><span class="line"><span class="keyword">import</span> com.baomidou.mybatisplus.generator.config.po.TableFill;</span><br><span class="line"><span class="keyword">import</span> com.baomidou.mybatisplus.generator.config.rules.DateType;</span><br><span class="line"><span class="keyword">import</span> com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 代码自动生成器</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CodeGenerator</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(<span class="keyword">final</span> String[] args)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 需要构建一个 代码自动生成器 对象</span></span><br><span class="line">        <span class="keyword">final</span> AutoGenerator mpg = <span class="keyword">new</span> AutoGenerator();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 配置策略</span></span><br><span class="line">        <span class="comment">// 1、全局配置</span></span><br><span class="line">        <span class="keyword">final</span> GlobalConfig gc = <span class="keyword">new</span> GlobalConfig();</span><br><span class="line">        <span class="keyword">final</span> String projectPath = System.getProperty(<span class="string">&quot;user.dir&quot;</span>);</span><br><span class="line">        gc.setOutputDir(projectPath + <span class="string">&quot;/demo/src/main/java&quot;</span>);</span><br><span class="line">        gc.setAuthor(<span class="string">&quot;abc&quot;</span>);</span><br><span class="line">        <span class="comment">// 是否打开输出目录</span></span><br><span class="line">        gc.setOpen(<span class="keyword">false</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 是否覆盖</span></span><br><span class="line">        gc.setFileOverride(<span class="keyword">true</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 去Service的I前缀</span></span><br><span class="line">        gc.setServiceName(<span class="string">&quot;%sService&quot;</span>);</span><br><span class="line">        gc.setMapperName(<span class="string">&quot;%sDao&quot;</span>);</span><br><span class="line"></span><br><span class="line">        gc.setIdType(IdType.AUTO);</span><br><span class="line">        gc.setDateType(DateType.ONLY_DATE);</span><br><span class="line">        gc.setSwagger2(<span class="keyword">true</span>);</span><br><span class="line">        mpg.setGlobalConfig(gc);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//2、设置数据源</span></span><br><span class="line">        <span class="keyword">final</span> DataSourceConfig dsc = <span class="keyword">new</span> DataSourceConfig();</span><br><span class="line">        dsc.setUrl(</span><br><span class="line">                <span class="string">&quot;jdbc:mysql://localhost:3306/abbbb? useSSL=false&amp;useUnicode=true&amp;characterEncoding=utf-8&amp;serverTimezone=GMT%2B8&quot;</span>);</span><br><span class="line">        dsc.setDriverName(<span class="string">&quot;com.mysql.cj.jdbc.Driver&quot;</span>);</span><br><span class="line">        dsc.setUsername(<span class="string">&quot;root&quot;</span>);</span><br><span class="line">        dsc.setPassword(<span class="string">&quot;123&quot;</span>);</span><br><span class="line">        dsc.setDbType(DbType.MYSQL);</span><br><span class="line">        mpg.setDataSource(dsc);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//3、包的配置</span></span><br><span class="line">        <span class="keyword">final</span> PackageConfig pc = <span class="keyword">new</span> PackageConfig();</span><br><span class="line">        <span class="comment">//只需要改实体类名字 和包名 还有 数据库配置即可</span></span><br><span class="line">        pc.setModuleName(<span class="string">&quot;cat&quot;</span>);</span><br><span class="line">        pc.setParent(<span class="string">&quot;com.abc&quot;</span>);</span><br><span class="line">        pc.setEntity(<span class="string">&quot;model.entity&quot;</span>);</span><br><span class="line">        pc.setMapper(<span class="string">&quot;dao&quot;</span>);</span><br><span class="line">        pc.setService(<span class="string">&quot;service&quot;</span>);</span><br><span class="line">        pc.setController(<span class="string">&quot;controller&quot;</span>);</span><br><span class="line">        mpg.setPackageInfo(pc);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//4、策略配置</span></span><br><span class="line">        <span class="keyword">final</span> StrategyConfig strategy = <span class="keyword">new</span> StrategyConfig();</span><br><span class="line">        strategy.setInclude(<span class="string">&quot;表名1&quot;</span>,<span class="string">&quot;表名2&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 设置要映射的表名驼峰命名</span></span><br><span class="line">        strategy.setNaming(NamingStrategy.underline_to_camel);</span><br><span class="line">        strategy.setColumnNaming(NamingStrategy.underline_to_camel);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 自动lombok；</span></span><br><span class="line">        strategy.setEntityLombokModel(<span class="keyword">true</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 配置逻辑删除</span></span><br><span class="line">        strategy.setLogicDeleteFieldName(<span class="string">&quot;deleted&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 自动填充配置</span></span><br><span class="line">        <span class="keyword">final</span> TableFill gmtCreate = <span class="keyword">new</span> TableFill(<span class="string">&quot;create_time&quot;</span>, FieldFill.INSERT);</span><br><span class="line">        <span class="keyword">final</span> TableFill gmtModified = <span class="keyword">new</span> TableFill(<span class="string">&quot;update_time&quot;</span>, FieldFill.INSERT_UPDATE);</span><br><span class="line">        <span class="keyword">final</span> ArrayList&lt;TableFill&gt; tableFills = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        tableFills.add(gmtCreate);</span><br><span class="line">        tableFills.add(gmtModified);</span><br><span class="line">        strategy.setTableFillList(tableFills);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 乐观锁</span></span><br><span class="line">        strategy.setVersionFieldName(<span class="string">&quot;version&quot;</span>);</span><br><span class="line">        strategy.setRestControllerStyle(<span class="keyword">true</span>);</span><br><span class="line">        <span class="comment">// 驼峰转连字符  abc/hello_id</span></span><br><span class="line">        <span class="comment">//        strategy.setControllerMappingHyphenStyle(true);</span></span><br><span class="line"></span><br><span class="line">        mpg.setStrategy(strategy);</span><br><span class="line">        mpg.execute(); <span class="comment">//执行</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="mybatis-generator"><a href="#mybatis-generator" class="headerlink" title="mybatis-generator"></a>mybatis-generator</h2><p>依赖</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">build</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">plugins</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--mybatis generator--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.mybatis.generator<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mybatis-generator-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.3.5<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">                <span class="comment">&lt;!-- 在控制台打印执行日志 --&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">verbose</span>&gt;</span>true<span class="tag">&lt;/<span class="name">verbose</span>&gt;</span></span><br><span class="line">                <span class="comment">&lt;!-- 重复生成时会覆盖之前的文件--&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">overwrite</span>&gt;</span>true<span class="tag">&lt;/<span class="name">overwrite</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">configurationFile</span>&gt;</span>src/main/resources/generatorConfig.xml<span class="tag">&lt;/<span class="name">configurationFile</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line">            <span class="comment">&lt;!-- 数据库连接选择8.0以上的，因为用的mysql8.0--&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>mysql<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mysql-connector-java<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">version</span>&gt;</span>8.0.16<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">plugins</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">build</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>配置</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">generatorConfiguration</span></span></span><br><span class="line"><span class="meta">        <span class="meta-keyword">PUBLIC</span> <span class="meta-string">&quot;-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN&quot;</span></span></span><br><span class="line"><span class="meta">        <span class="meta-string">&quot;http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">generatorConfiguration</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- targetRuntime：设置生成的文件适用于那个 mybatis 版本 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">context</span> <span class="attr">id</span>=<span class="string">&quot;default&quot;</span> <span class="attr">targetRuntime</span>=<span class="string">&quot;MyBatis3&quot;</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--optional,指在创建class时，对注释进行控制--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">commentGenerator</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;suppressDate&quot;</span> <span class="attr">value</span>=<span class="string">&quot;true&quot;</span>/&gt;</span></span><br><span class="line">            <span class="comment">&lt;!-- 是否去除自动生成的注释 true：是 ： false:否 --&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;suppressAllComments&quot;</span> <span class="attr">value</span>=<span class="string">&quot;true&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">commentGenerator</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--jdbc的数据库连接 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">jdbcConnection</span> <span class="attr">driverClass</span>=<span class="string">&quot;com.mysql.cj.jdbc.Driver&quot;</span></span></span><br><span class="line"><span class="tag">                        <span class="attr">connectionURL</span>=<span class="string">&quot;jdbc:mysql://localhost:3306/abc?useUnicode=true<span class="symbol">&amp;amp;</span>characeterEncoding=utf-8<span class="symbol">&amp;amp;</span>serverTimezone=UTC&quot;</span></span></span><br><span class="line"><span class="tag">                        <span class="attr">userId</span>=<span class="string">&quot;root&quot;</span></span></span><br><span class="line"><span class="tag">                        <span class="attr">password</span>=<span class="string">&quot;root&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">jdbcConnection</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--非必须，类型处理器，在数据库类型和java类型之间的转换控制--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">javaTypeResolver</span>&gt;</span></span><br><span class="line">            <span class="comment">&lt;!-- 默认情况下数据库中的 decimal，bigInt 在 Java 对应是 sql 下的 BigDecimal 类 --&gt;</span></span><br><span class="line">            <span class="comment">&lt;!-- 不是 double 和 long 类型 --&gt;</span></span><br><span class="line">            <span class="comment">&lt;!-- 使用常用的基本类型代替 sql 包下的引用类型 --&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;forceBigDecimals&quot;</span> <span class="attr">value</span>=<span class="string">&quot;false&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">javaTypeResolver</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- targetPackage：生成的实体类所在的包 --&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- targetProject：生成的实体类所在的硬盘位置 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">javaModelGenerator</span> <span class="attr">targetPackage</span>=<span class="string">&quot;com.abc.model.entity&quot;</span></span></span><br><span class="line"><span class="tag">                            <span class="attr">targetProject</span>=<span class="string">&quot;src/main/java&quot;</span>&gt;</span></span><br><span class="line">            <span class="comment">&lt;!-- 是否允许子包 --&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;enableSubPackages&quot;</span> <span class="attr">value</span>=<span class="string">&quot;false&quot;</span>/&gt;</span></span><br><span class="line">            <span class="comment">&lt;!-- 是否清理从数据库中查询出的字符串左右两边的空白字符 --&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;trimStrings&quot;</span> <span class="attr">value</span>=<span class="string">&quot;true&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">javaModelGenerator</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- targetPackage 和 targetProject：生成的 mapper 文件的包和位置 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">sqlMapGenerator</span> <span class="attr">targetPackage</span>=<span class="string">&quot;/mapper/abc&quot;</span></span></span><br><span class="line"><span class="tag">                         <span class="attr">targetProject</span>=<span class="string">&quot;src/main/resources&quot;</span>&gt;</span></span><br><span class="line">            <span class="comment">&lt;!-- 针对数据库的一个配置，是否把 schema 作为字包名 --&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;enableSubPackages&quot;</span> <span class="attr">value</span>=<span class="string">&quot;false&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">sqlMapGenerator</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- targetPackage 和 targetProject：生成的 interface 文件的包和位置 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">javaClientGenerator</span> <span class="attr">type</span>=<span class="string">&quot;XMLMAPPER&quot;</span></span></span><br><span class="line"><span class="tag">                             <span class="attr">targetPackage</span>=<span class="string">&quot;com.abc.dao&quot;</span> <span class="attr">targetProject</span>=<span class="string">&quot;src/main/java&quot;</span>&gt;</span></span><br><span class="line">            <span class="comment">&lt;!-- 针对 oracle 数据库的一个配置，是否把 schema 作为字包名 --&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;enableSubPackages&quot;</span> <span class="attr">value</span>=<span class="string">&quot;false&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">javaClientGenerator</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">&lt;!--        &lt;table tableName=&quot;%&quot; schema=&quot;abc&quot;--&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--               enableCountByExample=&quot;false&quot; enableUpdateByExample=&quot;false&quot;--&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--               enableDeleteByExample=&quot;false&quot; enableSelectByExample=&quot;false&quot;--&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--               selectByExampleQueryId=&quot;false&quot;/&gt;--&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">&lt;!-- tableName是数据库中的表名，domainObjectName是生成的JAVA模型名，后面的参数不用改，要生成更多的表就在下面继续加table标签 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">table</span> <span class="attr">tableName</span>=<span class="string">&quot;abc&quot;</span> <span class="attr">domainObjectName</span>=<span class="string">&quot;abc&quot;</span></span></span><br><span class="line"><span class="tag">               <span class="attr">enableInsert</span>=<span class="string">&quot;true&quot;</span> <span class="attr">enableCountByExample</span>=<span class="string">&quot;false&quot;</span> <span class="attr">enableUpdateByExample</span>=<span class="string">&quot;false&quot;</span></span></span><br><span class="line"><span class="tag">               <span class="attr">enableDeleteByExample</span>=<span class="string">&quot;false&quot;</span> <span class="attr">enableSelectByExample</span>=<span class="string">&quot;false&quot;</span></span></span><br><span class="line"><span class="tag">               <span class="attr">selectByExampleQueryId</span>=<span class="string">&quot;false&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">table</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">context</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">generatorConfiguration</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="http://example.com/2021/04/11/mybatis-plus/" title="mybatis-plus" target="_blank" rel="external">http://example.com/2021/04/11/mybatis-plus/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/feenammm" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/logo.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/feenammm" target="_blank"><span class="text-dark"></span><small class="ml-1x"></small></a></h3>
+        <div></div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/2021/04/11/mysql/" title="mysql"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+    </li>
+    
+    
+    
+    <li class="toggle-toc">
+      <a class="toggle-btn collapsed" data-toggle="collapse" href="#collapseToc" aria-expanded="false" title="文章目录" role="button">
+        <span>[&nbsp;</span><span>文章目录</span>
+        <i class="text-collapsed icon icon-anchor"></i>
+        <i class="text-in icon icon-close"></i>
+        <span>]</span>
+      </a>
+    </li>
+    
+  </ul>
+  
+  
+  
+  <div class="bar-right">
+    
+  </div>
+  </div>
+</nav>
+  
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/feenammm" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+<script src="/js/plugin.min.js"></script>
+
+
+<script src="/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+
+
+
+
+   
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+   
+
+
+
+
+
+
+</body>
+</html>
