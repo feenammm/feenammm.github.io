@@ -2,42 +2,63 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://example.com/2021/04/11/mybatis-plus/</loc>
+    <loc>http://wajj.xin/2021/04/11/java/SpringSecurity/SpringSecurity/</loc>
     
-    <lastmod>2021-04-16</lastmod>
+    <lastmod>2021-04-27</lastmod>
     
   </url>
   
   <url>
-    <loc>http://example.com/2021/04/11/mysql/</loc>
+    <loc>http://wajj.xin/2021/04/19/java/Quartz/Quartz/</loc>
+    
+    <lastmod>2021-04-21</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://wajj.xin/2021/04/11/%E6%95%B0%E6%8D%AE%E5%BA%93/mysql/mysql/</loc>
+    
+    <lastmod>2021-04-19</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://wajj.xin/2021/04/11/java/mybatis/mybatis-plus/</loc>
+    
+    <lastmod>2021-04-19</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://wajj.xin/2021/04/16/Linux/nginx/nginx/</loc>
+    
+    <lastmod>2021-04-19</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://wajj.xin/links/index.html</loc>
     
     <lastmod>2021-04-14</lastmod>
     
   </url>
   
   <url>
-    <loc>http://example.com/links/index.html</loc>
+    <loc>http://wajj.xin/tags/index.html</loc>
     
     <lastmod>2021-04-14</lastmod>
     
   </url>
   
   <url>
-    <loc>http://example.com/categories/index.html</loc>
+    <loc>http://wajj.xin/categories/index.html</loc>
     
     <lastmod>2021-04-14</lastmod>
     
   </url>
   
   <url>
-    <loc>http://example.com/tags/index.html</loc>
-    
-    <lastmod>2021-04-14</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://example.com/repository/index.html</loc>
+    <loc>http://wajj.xin/repository/index.html</loc>
     
     <lastmod>2021-04-14</lastmod>
     
@@ -45,23 +66,65 @@
   
 
   <url>
-    <loc>http://example.com/</loc>
-    <lastmod>2021-04-16</lastmod>
+    <loc>http://wajj.xin/</loc>
+    <lastmod>2021-04-27</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
 
   
   <url>
-    <loc>http://example.com/tags/mysql/</loc>
-    <lastmod>2021-04-16</lastmod>
+    <loc>http://wajj.xin/tags/java/</loc>
+    <lastmod>2021-04-27</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>http://example.com/tags/mybatis/</loc>
-    <lastmod>2021-04-16</lastmod>
+    <loc>http://wajj.xin/tags/Linux/</loc>
+    <lastmod>2021-04-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://wajj.xin/tags/nginx/</loc>
+    <lastmod>2021-04-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://wajj.xin/tags/mysql/</loc>
+    <lastmod>2021-04-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://wajj.xin/tags/Quartz/</loc>
+    <lastmod>2021-04-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://wajj.xin/tags/mybatis/</loc>
+    <lastmod>2021-04-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://wajj.xin/tags/Spring-Security/</loc>
+    <lastmod>2021-04-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://wajj.xin/tags/SpringBoot/</loc>
+    <lastmod>2021-04-27</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
@@ -69,15 +132,57 @@
 
   
   <url>
-    <loc>http://example.com/categories/mysql/</loc>
-    <lastmod>2021-04-16</lastmod>
+    <loc>http://wajj.xin/categories/java/</loc>
+    <lastmod>2021-04-27</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>http://example.com/categories/mybatis/</loc>
-    <lastmod>2021-04-16</lastmod>
+    <loc>http://wajj.xin/categories/Linux/</loc>
+    <lastmod>2021-04-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://wajj.xin/categories/mysql/</loc>
+    <lastmod>2021-04-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://wajj.xin/categories/Linux/nginx/</loc>
+    <lastmod>2021-04-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://wajj.xin/categories/java/Quartz/</loc>
+    <lastmod>2021-04-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://wajj.xin/categories/java/mybatis/</loc>
+    <lastmod>2021-04-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://wajj.xin/categories/java/Spring-Security/</loc>
+    <lastmod>2021-04-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://wajj.xin/categories/java/Spring-Security/SpringBoot/</loc>
+    <lastmod>2021-04-27</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>

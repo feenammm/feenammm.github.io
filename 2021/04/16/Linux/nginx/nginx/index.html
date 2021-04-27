@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <title>nginx | Hexo</title>
+  <meta name="description" content="nginx高性能的HTTP和反向代理服务器,也提供IMAP&#x2F;POP3&#x2F;SMTP服务 特点:  ​    内存占用少 ​    并发强(5w) ​    能够热部署 配置文件nginx配置文件中分为三部分:全局块,events块,http块 nginx.conf 结构图可以这样概括： 12345678910main        # 全局配置，对全局生效├── events  # 配置影响 Ngin">
+<meta property="og:type" content="article">
+<meta property="og:title" content="nginx">
+<meta property="og:url" content="http://wajj.xin/2021/04/16/Linux/nginx/nginx/index.html">
+<meta property="og:site_name" content="阿巴巴巴">
+<meta property="og:description" content="nginx高性能的HTTP和反向代理服务器,也提供IMAP&#x2F;POP3&#x2F;SMTP服务 特点:  ​    内存占用少 ​    并发强(5w) ​    能够热部署 配置文件nginx配置文件中分为三部分:全局块,events块,http块 nginx.conf 结构图可以这样概括： 12345678910main        # 全局配置，对全局生效├── events  # 配置影响 Ngin">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://wajj.xin/2021/04/16/Linux/nginx/nginx/nginx/46bda7e8fc7.png">
+<meta property="og:image" content="http://wajj.xin/2021/04/16/Linux/nginx/nginx/nginx/1cab81089.png">
+<meta property="og:image" content="http://wajj.xin/2021/04/16/Linux/nginx/nginx/nginx/image-20210109222636733.png">
+<meta property="og:image" content="http://wajj.xin/2021/04/16/Linux/nginx/nginx/nginx/image-20210109225254430.png">
+<meta property="og:image" content="http://wajj.xin/2021/04/16/Linux/nginx/nginx/nginx/image-20210109231416408.png">
+<meta property="article:published_time" content="2021-04-16T13:21:10.000Z">
+<meta property="article:modified_time" content="2021-04-19T07:20:11.014Z">
+<meta property="article:author" content="wxy">
+<meta property="article:tag" content="Linux">
+<meta property="article:tag" content="nginx">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://wajj.xin/2021/04/16/Linux/nginx/nginx/nginx/46bda7e8fc7.png">
+  <!-- Canonical links -->
+  <link rel="canonical" href="http://wajj.xin/2021/04/16/Linux/nginx/nginx/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="阿巴巴巴" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+  
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body class="main-center no-sidebar" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/feenammm" target="_blank">
+          <img class="img-circle img-rotate" src="/images/logo.jpg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm"></h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md"></h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">归档</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">分类</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">标签</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-repository">
+          <a href="/repository">
+            
+            <i class="icon icon-project"></i>
+            
+            <span class="menu-title">项目</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links">
+            
+            <i class="icon icon-friendship"></i>
+            
+            <span class="menu-title">友链</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/feenammm" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>欢迎交流与分享经验!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/nginx/">nginx</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a><span class="category-list-count">3</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/java/Quartz/">Quartz</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/Spring-Security/">Spring Security</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/java/Spring-Security/SpringBoot/">SpringBoot</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/mybatis/">mybatis</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/mysql/">mysql</a><span class="category-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget-body">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Quartz/" rel="tag">Quartz</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring-Security/" rel="tag">Spring Security</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringBoot/" rel="tag">SpringBoot</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/" rel="tag">java</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mybatis/" rel="tag">mybatis</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/" rel="tag">mysql</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/" rel="tag">nginx</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/Linux/" style="font-size: 13px;">Linux</a> <a href="/tags/Quartz/" style="font-size: 13px;">Quartz</a> <a href="/tags/Spring-Security/" style="font-size: 13px;">Spring Security</a> <a href="/tags/SpringBoot/" style="font-size: 13px;">SpringBoot</a> <a href="/tags/java/" style="font-size: 14px;">java</a> <a href="/tags/mybatis/" style="font-size: 13px;">mybatis</a> <a href="/tags/mysql/" style="font-size: 13px;">mysql</a> <a href="/tags/nginx/" style="font-size: 13px;">nginx</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">四月 2021</a><span class="archive-list-count">5</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/java/">java</a><i class="icon icon-angle-right"></i><a class="category-link" href="/categories/java/Quartz/">Quartz</a>
+              </p>
+              <p class="item-title">
+                <a href="/2021/04/19/java/Quartz/Quartz/" class="title">Quartz</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-04-19T07:24:46.000Z" itemprop="datePublished">2021-04-19</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Linux/">Linux</a><i class="icon icon-angle-right"></i><a class="category-link" href="/categories/Linux/nginx/">nginx</a>
+              </p>
+              <p class="item-title">
+                <a href="/2021/04/16/Linux/nginx/nginx/" class="title">nginx</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-04-16T13:21:10.000Z" itemprop="datePublished">2021-04-16</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/mysql/">mysql</a>
+              </p>
+              <p class="item-title">
+                <a href="/2021/04/11/%E6%95%B0%E6%8D%AE%E5%BA%93/mysql/mysql/" class="title">mysql</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-04-11T12:51:41.000Z" itemprop="datePublished">2021-04-11</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/java/">java</a><i class="icon icon-angle-right"></i><a class="category-link" href="/categories/java/mybatis/">mybatis</a>
+              </p>
+              <p class="item-title">
+                <a href="/2021/04/11/java/mybatis/mybatis-plus/" class="title">mybatis-plus</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-04-11T12:51:41.000Z" itemprop="datePublished">2021-04-11</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/java/">java</a><i class="icon icon-angle-right"></i><a class="category-link" href="/categories/java/Spring-Security/">Spring Security</a>
+              </p>
+              <p class="item-title">
+                <a href="/2021/04/11/java/SpringSecurity/SpringSecurity/" class="title">Spring Security</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-04-11T12:51:41.000Z" itemprop="datePublished">2021-04-11</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<aside class="sidebar sidebar-toc collapse" id="collapseToc" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    <nav id="toc" class="article-toc">
+      <h3 class="toc-title">文章目录</h3>
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#nginx"><span class="toc-number">1.</span> <span class="toc-text">nginx</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="toc-number">1.1.</span> <span class="toc-text">配置文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AD%A3%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86"><span class="toc-number">1.2.</span> <span class="toc-text">正反向代理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1"><span class="toc-number">1.3.</span> <span class="toc-text">负载均衡</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8A%A8%E9%9D%99%E5%88%86%E7%A6%BB"><span class="toc-number">1.4.</span> <span class="toc-text">动静分离</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#GZip"><span class="toc-number">1.5.</span> <span class="toc-text">GZip</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85"><span class="toc-number">1.6.</span> <span class="toc-text">安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%AE%E5%BD%95"><span class="toc-number">1.7.</span> <span class="toc-text">目录</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%91%BD%E4%BB%A4"><span class="toc-number">1.8.</span> <span class="toc-text">命令</span></a></li></ol></li></ol>
+    </nav>
+  </div>
+</aside>
+
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-Linux/nginx/nginx" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      nginx
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2021/04/16/Linux/nginx/nginx/" class="article-date">
+	  <time datetime="2021-04-16T13:21:10.000Z" itemprop="datePublished">2021-04-16</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/Linux/">Linux</a>►<a class="article-category-link" href="/categories/Linux/nginx/">nginx</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/Linux/" rel="tag">Linux</a>, <a class="article-tag-link-link" href="/tags/nginx/" rel="tag">nginx</a>
+  </span>
+
+
+        
+	<span class="article-read hidden-xs">
+	    <i class="icon icon-eye-fill" aria-hidden="true"></i>
+	    <span id="busuanzi_container_page_pv">
+			<span id="busuanzi_value_page_pv">0</span>
+		</span>
+	</span>
+
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/04/16/Linux/nginx/nginx/#comments" class="article-comment-link">评论</a></span>
+        
+	
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 2.1k(字)</span>
+	
+	
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 7(分)</span>
+	
+
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <h1 id="nginx"><a href="#nginx" class="headerlink" title="nginx"></a>nginx</h1><p>高性能的HTTP和反向代理服务器,也提供IMAP/POP3/SMTP服务</p>
+<p>特点: </p>
+<p>​    内存占用少</p>
+<p>​    并发强(5w)</p>
+<p>​    能够热部署</p>
+<h2 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h2><p>nginx配置文件中分为三部分:全局块,events块,http块</p>
+<p><code>nginx.conf</code> 结构图可以这样概括：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">main        # 全局配置，对全局生效</span><br><span class="line">├── events  # 配置影响 Nginx 服务器或与用户的网络连接</span><br><span class="line">├── http    # 配置代理，缓存，日志定义等绝大多数功能和第三方模块的配置</span><br><span class="line">│   ├── upstream # 配置后端服务器具体地址，负载均衡配置不可或缺的部分</span><br><span class="line">│   ├── server   # 配置虚拟主机的相关参数，一个 http 块中可以有多个 server 块</span><br><span class="line">│   ├── server</span><br><span class="line">│   │   ├── location  # server 块可以包含多个 location 块，location 指令用于匹配 uri</span><br><span class="line">│   │   ├── location</span><br><span class="line">│   │   └── ...</span><br><span class="line">│   └── ...</span><br></pre></td></tr></table></figure>
+
+<p><strong>语法</strong></p>
+<ol>
+<li>配置文件由指令与指令块构成；</li>
+<li>每条指令以 <code>;</code> 分号结尾，指令与参数间以空格符号分隔；</li>
+<li>指令块以 <code>&#123;&#125;</code> 大括号将多条指令组织在一起；</li>
+<li><code>include</code> 语句允许组合多个配置文件以提升可维护性；</li>
+<li>使用 <code>#</code> 符号添加注释，提高可读性；</li>
+<li>使用 <code>$</code> 符号使用变量；</li>
+<li>部分指令的参数支持正则表达式；</li>
+</ol>
+<p>server 块可以包含多个 location 块，location 指令用于匹配 uri，语法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">location [ &#x3D; | ~ | ~* | ^~] uri &#123;</span><br><span class="line">	...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>指令后面：</p>
+<ol>
+<li><code>=</code> 精确匹配路径，用于不含正则表达式的 uri 前，如果匹配成功，不再进行后续的查找；</li>
+<li><code>^~</code> 用于不含正则表达式的 uri； 前，表示如果该符号后面的字符是最佳匹配，采用该规则，不再进行后续的查找；</li>
+<li><strong><code>~</code> 表示用该符号后面的正则去匹配路径，区分大小写；</strong></li>
+<li><code>~*</code> 表示用该符号后面的正则去匹配路径，不区分大小写。跟 <code>~</code> 优先级都比较低，如有多个location的正则能匹配的话，则使用正则表达式最长的那个；</li>
+</ol>
+<p>如果 uri 包含正则表达式，则必须要有 <code>~</code> 或 <code>~*</code> 标志。</p>
+<h2 id="正反向代理"><a href="#正反向代理" class="headerlink" title="正反向代理"></a>正反向代理</h2><p>正向代理:</p>
+<p><img src="/2021/04/16/Linux/nginx/nginx/nginx/46bda7e8fc7.png" alt="img"></p>
+<p>代理客户端,请求通过代理服务器进行互联网访问,隐藏了真实的客户端地址，代理服务器为客户端收发请求，使真实客户端对服务器不可见</p>
+<p><img src="/2021/04/16/Linux/nginx/nginx/nginx/1cab81089.png" alt="img"></p>
+<p>代理服务器端,客户端不需要任何配置,将请求发送给反向代理服务器,反向代理服务器会对请求进行分发,在客户端视角不知道有分发的过程,认为反向代理服务器和目标服务器是一个整体</p>
+<p>服务器只暴露了反向代理服务器地址,隐藏了真实服务器地址,提高了安全性</p>
+<p>配置:</p>
+<p><img src="/2021/04/16/Linux/nginx/nginx/nginx/image-20210109222636733.png" alt="image-20210109222636733"></p>
+<h2 id="负载均衡"><a href="#负载均衡" class="headerlink" title="负载均衡"></a>负载均衡</h2><p><img src="/2021/04/16/Linux/nginx/nginx/nginx/image-20210109225254430.png" alt="image-20210109225254430"></p>
+<p>Nginx提供的负载均衡策略有2种：内置策略和扩展策略。</p>
+<p>内置策略为轮询，加权轮询，Ip hash。</p>
+<ol>
+<li><strong>轮询</strong>，默认方式，每个请求按时间顺序逐一分配到不同的后端服务器，如果后端服务挂了，能自动剔除；</li>
+<li><strong>weight</strong>，权重分配，指定轮询几率，权重越高，在被访问的概率越大，用于后端服务器性能不均的情况；</li>
+<li><strong>ip_hash</strong>，每个请求按访问 IP 的 hash 结果分配，这样每个访客固定访问一个后端服务器，可以<strong>解决动态网页 session 共享问题</strong>。负载均衡每次请求都会重新定位到服务器集群中的某一个，那么已经登录某一个服务器的用户再重新定位到另一个服务器，其登录信息将会丢失，这样显然是不妥的；</li>
+<li><strong>fair</strong>（第三方），按后端服务器的响应时间分配，响应时间短的优先分配，依赖第三方插件 nginx-upstream-fair，需要先安装；</li>
+</ol>
+<h2 id="动静分离"><a href="#动静分离" class="headerlink" title="动静分离"></a>动静分离</h2><p>在我们的开发中，有些请求是需要后台处理的，有些请求是不需要经过后台处理的（如：css、html、jpg、js等等文件），这些不需要经过后台处理的文件称为静态文件。</p>
+<p>让动态网站里的动态网页根据一定规则把不变的资源和经常变的资源区分开来，动静资源做好了拆分以后，我们就可以根据静态资源的特点将其做缓存操作。提高资源响应的速度。</p>
+<p><strong>方式</strong></p>
+<ul>
+<li>纯粹把静态文件独立成单独的域名，放在独立的服务器上(主流)</li>
+<li>动态跟静态文件混合在一起发布， 通过 Nginx 配置来分开</li>
+</ul>
+<p>建议搭配缓存使用</p>
+<p>通过 expires 参数设置，可以使浏览器缓存过期时间，减少与服务器之前的请求和流量。</p>
+<p>具体 expires 定义：是给一个资源设定一个过期时间，也就是说无需去服务端验证，直接通过浏览器自身确认是否过期即可，所以不会产生额外的流量。此种方法非常适合不经常变动的资源。</p>
+<p>设置为3d，表示在这 3 天之内访问这个URL，发送一个请求，比对服务器该文件最后更新时间没有变化。则不会从服务器抓取，返回状态码 304，如果有修改，则直接从服务器重新下载，返回状态码 200。</p>
+<p><img src="/2021/04/16/Linux/nginx/nginx/nginx/image-20210109231416408.png" alt="image-20210109231416408"></p>
+<h2 id="GZip"><a href="#GZip" class="headerlink" title="GZip"></a>GZip</h2><p>使用 gzip 不仅需要 Nginx 配置，浏览器端也需要配合，需要在请求消息头中包含 <code>Accept-Encoding: gzip</code>（IE5 之后所有的浏览器都支持了，是现代浏览器的默认设置）。一般在请求 html 和 css 等静态资源的时候，支持的浏览器在 request 请求静态资源的时候，会加上 <code>Accept-Encoding: gzip</code> 这个 header，表示自己支持 gzip 的压缩方式，Nginx 在拿到这个请求的时候，如果有相应配置，就会返回经过 gzip 压缩过的文件给浏览器，并在 response 相应的时候加上 <code>content-encoding: gzip</code> 来告诉浏览器自己采用的压缩方式（因为浏览器在传给服务器的时候一般还告诉服务器自己支持好几种压缩方式），浏览器拿到压缩的文件后，根据自己的解压方式进行解析。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"># &#x2F;etc&#x2F;nginx&#x2F;conf.d&#x2F;gzip.conf</span><br><span class="line"></span><br><span class="line">gzip on; # 默认off，是否开启gzip</span><br><span class="line">gzip_types text&#x2F;plain text&#x2F;css application&#x2F;json application&#x2F;x-javascript text&#x2F;xml application&#x2F;xml application&#x2F;xml+rss text&#x2F;javascript;</span><br><span class="line"></span><br><span class="line"># 上面两个开启基本就能跑起了，下面的愿意折腾就了解一下</span><br><span class="line">gzip_static on;</span><br><span class="line">gzip_proxied any;</span><br><span class="line">gzip_vary on;</span><br><span class="line">gzip_comp_level 6;</span><br><span class="line">gzip_buffers 16 8k;</span><br><span class="line"># gzip_min_length 1k;</span><br><span class="line">gzip_http_version 1.1;</span><br></pre></td></tr></table></figure>
+
+<p>稍微解释一下：</p>
+<ol>
+<li><strong>gzip_types</strong>：要采用 gzip 压缩的 MIME 文件类型，其中 text/html 被系统强制启用；</li>
+<li><strong>gzip_static</strong>：默认 off，该模块启用后，Nginx 首先检查是否存在请求静态文件的 gz 结尾的文件，如果有则直接返回该 <code>.gz</code> 文件内容；</li>
+<li><strong>gzip_proxied</strong>：默认 off，nginx做为反向代理时启用，用于设置启用或禁用从代理服务器上收到相应内容 gzip 压缩；</li>
+<li><strong>gzip_vary</strong>：用于在响应消息头中添加 <code>Vary：Accept-Encoding</code>，使代理服务器根据请求头中的 <code>Accept-Encoding</code> 识别是否启用 gzip 压缩；</li>
+<li><strong>gzip_comp_level</strong>：gzip 压缩比，压缩级别是 1-9，1 压缩级别最低，9 最高，级别越高压缩率越大，压缩时间越长，建议 4-6；</li>
+<li><strong>gzip_buffers</strong>：获取多少内存用于缓存压缩结果，16 8k 表示以 8k*16 为单位获得；</li>
+<li><strong>gzip_min_length</strong>：允许压缩的页面最小字节数，页面字节数从header头中的 <code>Content-Length</code> 中进行获取。默认值是 0，不管页面多大都压缩。建议设置成大于 1k 的字节数，小于 1k 可能会越压越大；</li>
+<li><strong>gzip_http_version</strong>：默认 1.1，启用 gzip 所需的 HTTP 最低版本；</li>
+</ol>
+<p>这个配置可以插入到 http 模块整个服务器的配置里，也可以插入到需要使用的虚拟主机的 <code>server</code> 或者下面的 <code>location</code> 模块中，当然像上面我们这样写的话就是被 include 到 http 模块中了。</p>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#安装</span></span><br><span class="line">apt-get install nginx</span><br><span class="line"><span class="comment">#启动</span></span><br><span class="line">service nginx start</span><br></pre></td></tr></table></figure>
+
+<h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><ul>
+<li>/usr/sbin/nginx：主程序</li>
+<li>/etc/nginx：存放配置文件</li>
+<li>/usr/share/nginx：存放静态文件</li>
+<li>/var/log/nginx：存放日志</li>
+</ul>
+<h2 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看nginx状态</span></span><br><span class="line">nginx -t</span><br><span class="line"><span class="comment"># 重新载入配置文件</span></span><br><span class="line">nginx -s reload</span><br><span class="line"><span class="comment"># 重启 Nginx</span></span><br><span class="line">nginx -s reopen</span><br><span class="line"><span class="comment"># 停止 Nginx</span></span><br><span class="line">nginx -s stop</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="http://wajj.xin/2021/04/16/Linux/nginx/nginx/" title="nginx" target="_blank" rel="external">http://wajj.xin/2021/04/16/Linux/nginx/nginx/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/feenammm" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/logo.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/feenammm" target="_blank"><span class="text-dark"></span><small class="ml-1x"></small></a></h3>
+        <div></div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/2021/04/19/java/Quartz/Quartz/" title="Quartz"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/2021/04/11/%E6%95%B0%E6%8D%AE%E5%BA%93/mysql/mysql/" title="mysql"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+    <li class="toggle-toc">
+      <a class="toggle-btn collapsed" data-toggle="collapse" href="#collapseToc" aria-expanded="false" title="文章目录" role="button">
+        <span>[&nbsp;</span><span>文章目录</span>
+        <i class="text-collapsed icon icon-anchor"></i>
+        <i class="text-in icon icon-close"></i>
+        <span>]</span>
+      </a>
+    </li>
+    
+  </ul>
+  
+  
+  
+  <div class="bar-right">
+    
+  </div>
+  </div>
+</nav>
+  
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/feenammm" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+<script src="/js/plugin.min.js"></script>
+
+
+<script src="/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+
+
+
+
+   
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+   
+
+
+
+
+
+
+</body>
+</html>

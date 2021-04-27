@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <title>Quartz | Hexo</title>
+  <meta name="description" content="(乱七八糟的复制) Quartz简介Quartz是OpenSymphony开源组织在Job scheduling领域又一个开源项目，是完全由java开发的一个开源的任务日程管理系统，“任务进度管理器”就是一个在预先确定（被纳入日程）的时间到达时，负责执行（或者通知）其他软件组件的系统。这些功能的主要接口(API)是Scheduler接口。它提供了简单的操作，例如：将任务纳入日程或者从日程中取消，开">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Quartz">
+<meta property="og:url" content="http://wajj.xin/2021/04/19/java/Quartz/Quartz/index.html">
+<meta property="og:site_name" content="阿巴巴巴">
+<meta property="og:description" content="(乱七八糟的复制) Quartz简介Quartz是OpenSymphony开源组织在Job scheduling领域又一个开源项目，是完全由java开发的一个开源的任务日程管理系统，“任务进度管理器”就是一个在预先确定（被纳入日程）的时间到达时，负责执行（或者通知）其他软件组件的系统。这些功能的主要接口(API)是Scheduler接口。它提供了简单的操作，例如：将任务纳入日程或者从日程中取消，开">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://wajj.xin/2021/04/19/java/Quartz/Quartz/20170204145258590">
+<meta property="article:published_time" content="2021-04-19T07:24:46.000Z">
+<meta property="article:modified_time" content="2021-04-21T03:19:38.453Z">
+<meta property="article:author" content="wxy">
+<meta property="article:tag" content="java">
+<meta property="article:tag" content="Quartz">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://wajj.xin/2021/04/19/java/Quartz/Quartz/20170204145258590">
+  <!-- Canonical links -->
+  <link rel="canonical" href="http://wajj.xin/2021/04/19/java/Quartz/Quartz/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="阿巴巴巴" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+  
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body class="main-center no-sidebar" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/feenammm" target="_blank">
+          <img class="img-circle img-rotate" src="/images/logo.jpg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm"></h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md"></h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">归档</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">分类</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">标签</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-repository">
+          <a href="/repository">
+            
+            <i class="icon icon-project"></i>
+            
+            <span class="menu-title">项目</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links">
+            
+            <i class="icon icon-friendship"></i>
+            
+            <span class="menu-title">友链</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/feenammm" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>欢迎交流与分享经验!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/nginx/">nginx</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a><span class="category-list-count">3</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/java/Quartz/">Quartz</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/Spring-Security/">Spring Security</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/java/Spring-Security/SpringBoot/">SpringBoot</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/mybatis/">mybatis</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/mysql/">mysql</a><span class="category-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget-body">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Quartz/" rel="tag">Quartz</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring-Security/" rel="tag">Spring Security</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringBoot/" rel="tag">SpringBoot</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/" rel="tag">java</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mybatis/" rel="tag">mybatis</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/" rel="tag">mysql</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/" rel="tag">nginx</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/Linux/" style="font-size: 13px;">Linux</a> <a href="/tags/Quartz/" style="font-size: 13px;">Quartz</a> <a href="/tags/Spring-Security/" style="font-size: 13px;">Spring Security</a> <a href="/tags/SpringBoot/" style="font-size: 13px;">SpringBoot</a> <a href="/tags/java/" style="font-size: 14px;">java</a> <a href="/tags/mybatis/" style="font-size: 13px;">mybatis</a> <a href="/tags/mysql/" style="font-size: 13px;">mysql</a> <a href="/tags/nginx/" style="font-size: 13px;">nginx</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">四月 2021</a><span class="archive-list-count">5</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/java/">java</a><i class="icon icon-angle-right"></i><a class="category-link" href="/categories/java/Quartz/">Quartz</a>
+              </p>
+              <p class="item-title">
+                <a href="/2021/04/19/java/Quartz/Quartz/" class="title">Quartz</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-04-19T07:24:46.000Z" itemprop="datePublished">2021-04-19</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Linux/">Linux</a><i class="icon icon-angle-right"></i><a class="category-link" href="/categories/Linux/nginx/">nginx</a>
+              </p>
+              <p class="item-title">
+                <a href="/2021/04/16/Linux/nginx/nginx/" class="title">nginx</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-04-16T13:21:10.000Z" itemprop="datePublished">2021-04-16</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/mysql/">mysql</a>
+              </p>
+              <p class="item-title">
+                <a href="/2021/04/11/%E6%95%B0%E6%8D%AE%E5%BA%93/mysql/mysql/" class="title">mysql</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-04-11T12:51:41.000Z" itemprop="datePublished">2021-04-11</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/java/">java</a><i class="icon icon-angle-right"></i><a class="category-link" href="/categories/java/mybatis/">mybatis</a>
+              </p>
+              <p class="item-title">
+                <a href="/2021/04/11/java/mybatis/mybatis-plus/" class="title">mybatis-plus</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-04-11T12:51:41.000Z" itemprop="datePublished">2021-04-11</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/java/">java</a><i class="icon icon-angle-right"></i><a class="category-link" href="/categories/java/Spring-Security/">Spring Security</a>
+              </p>
+              <p class="item-title">
+                <a href="/2021/04/11/java/SpringSecurity/SpringSecurity/" class="title">Spring Security</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-04-11T12:51:41.000Z" itemprop="datePublished">2021-04-11</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<aside class="sidebar sidebar-toc collapse" id="collapseToc" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    <nav id="toc" class="article-toc">
+      <h3 class="toc-title">文章目录</h3>
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Quartz"><span class="toc-number">1.</span> <span class="toc-text">Quartz</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%80%E4%BB%8B"><span class="toc-number">1.1.</span> <span class="toc-text">简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9A%E6%97%B6%E5%99%A8%E7%A7%8D%E7%B1%BB"><span class="toc-number">1.2.</span> <span class="toc-text">定时器种类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AD%98%E5%82%A8%E6%96%B9%E5%BC%8F"><span class="toc-number">1.3.</span> <span class="toc-text">存储方式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A1%A8%E5%85%B3%E7%B3%BB"><span class="toc-number">1.4.</span> <span class="toc-text">表关系</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AD%97%E6%AE%B5%E8%AF%A6%E8%A7%A3"><span class="toc-number">1.5.</span> <span class="toc-text">字段详解</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#qrtz-blob-triggers"><span class="toc-number">1.5.1.</span> <span class="toc-text">qrtz_blob_triggers</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#qrtz-calendars"><span class="toc-number">1.5.2.</span> <span class="toc-text">qrtz_calendars</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#qrtz-cron-triggers"><span class="toc-number">1.5.3.</span> <span class="toc-text">qrtz_cron_triggers</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#qrtz-fired-triggers"><span class="toc-number">1.5.4.</span> <span class="toc-text">qrtz_fired_triggers</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#qrtz-job-details"><span class="toc-number">1.5.5.</span> <span class="toc-text">qrtz_job_details</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#qrtz-locks"><span class="toc-number">1.5.6.</span> <span class="toc-text">qrtz_locks</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#qrtz-paused-trigger-grps"><span class="toc-number">1.5.7.</span> <span class="toc-text">qrtz_paused_trigger_grps</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#qrtz-scheduler-state"><span class="toc-number">1.5.8.</span> <span class="toc-text">qrtz_scheduler_state</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#qrtz-simple-triggers"><span class="toc-number">1.5.9.</span> <span class="toc-text">qrtz_simple_triggers</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#qrtz-triggers"><span class="toc-number">1.5.10.</span> <span class="toc-text">qrtz_triggers</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#quartz%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84"><span class="toc-number">1.6.</span> <span class="toc-text">quartz体系结构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Quartz-API"><span class="toc-number">1.6.1.</span> <span class="toc-text">Quartz API</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Job"><span class="toc-number">1.6.2.</span> <span class="toc-text">Job</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Trigger"><span class="toc-number">1.6.3.</span> <span class="toc-text">Trigger</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#TRIGGER-STATE%E7%9A%84%E5%80%BC"><span class="toc-number">1.6.3.1.</span> <span class="toc-text">TRIGGER_STATE的值</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%94%99%E8%BF%87%E8%A7%A6%E5%8F%91"><span class="toc-number">1.6.4.</span> <span class="toc-text">错过触发</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#key"><span class="toc-number">1.6.5.</span> <span class="toc-text">key</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#JobDataMap"><span class="toc-number">1.6.6.</span> <span class="toc-text">JobDataMap</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#TriggerListeners%E5%92%8CJobListeners"><span class="toc-number">1.6.7.</span> <span class="toc-text">TriggerListeners和JobListeners</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Job-Stores"><span class="toc-number">1.6.8.</span> <span class="toc-text">Job Stores</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#quartz-properties"><span class="toc-number">1.7.</span> <span class="toc-text">quartz.properties</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%80%E5%8D%95%E5%AE%9E%E4%BE%8B"><span class="toc-number">1.8.</span> <span class="toc-text">简单实例</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">2.</span> <span class="toc-text"></span></a></li></ol>
+    </nav>
+  </div>
+</aside>
+
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-java/Quartz/Quartz" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Quartz
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2021/04/19/java/Quartz/Quartz/" class="article-date">
+	  <time datetime="2021-04-19T07:24:46.000Z" itemprop="datePublished">2021-04-19</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/java/">java</a>►<a class="article-category-link" href="/categories/java/Quartz/">Quartz</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/Quartz/" rel="tag">Quartz</a>, <a class="article-tag-link-link" href="/tags/java/" rel="tag">java</a>
+  </span>
+
+
+        
+	<span class="article-read hidden-xs">
+	    <i class="icon icon-eye-fill" aria-hidden="true"></i>
+	    <span id="busuanzi_container_page_pv">
+			<span id="busuanzi_value_page_pv">0</span>
+		</span>
+	</span>
+
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/04/19/java/Quartz/Quartz/#comments" class="article-comment-link">评论</a></span>
+        
+	
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 4.5k(字)</span>
+	
+	
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 19(分)</span>
+	
+
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <p>(乱七八糟的复制)</p>
+<h1 id="Quartz"><a href="#Quartz" class="headerlink" title="Quartz"></a>Quartz</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>Quartz是OpenSymphony开源组织在Job scheduling领域又一个开源项目，是完全由java开发的一个开源的任务日程管理系统，“任务进度管理器”就是一个在预先确定（被纳入日程）的时间到达时，负责执行（或者通知）其他软件组件的系统。<br>这些功能的主要接口(API)是Scheduler接口。它提供了简单的操作，例如：将任务纳入日程或者从日程中取消，开始/停止/暂停日程进度。</p>
+<h2 id="定时器种类"><a href="#定时器种类" class="headerlink" title="定时器种类"></a>定时器种类</h2><p>Quartz 中五种类型的 Trigger：SimpleTrigger，CronTirgger，DateIntervalTrigger，NthIncludedDayTrigger和Calendar 类。<br>最常用的：<br>SimpleTrigger：用来触发只需执行一次或者在给定时间触发并且重复N次且每次执行延迟一定时间的任务<br>CronTrigger：按照cron表达式触发<br>calendars 方式：可以和cron配合使用，用cron表达式指定一个触发时间规律，用calendar指定一个范围</p>
+<h2 id="存储方式"><a href="#存储方式" class="headerlink" title="存储方式"></a>存储方式</h2><table>
+<thead>
+<tr>
+<th>类型</th>
+<th>优点</th>
+<th>缺点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>RAMJobStore本地运行</td>
+<td>不要外部数据库，配置容易，运行速度快</td>
+<td>因为调度程序信息是存储在被分配给JVM的内存里面，所以，当应用程序停止运行时，所有调度信息将被丢失。另外因为存储到JVM内存里面，所以可以存储多少个Job和Trigger将会受到限制</td>
+</tr>
+<tr>
+<td>JDBCJobStore使用数据库</td>
+<td>支持集群，因为所有的任务信息都会保存到数据库中，可以控制事物，还有就是如果应用服务器关闭或者重启，任务信息都不会丢失，并且可以恢复因服务器关闭或者重启而导致执行失败的任务</td>
+<td>运行速度的快慢取决与连接数据库的快慢</td>
+</tr>
+</tbody></table>
+<h2 id="表关系"><a href="#表关系" class="headerlink" title="表关系"></a>表关系</h2><p><img src="/2021/04/19/java/Quartz/Quartz/20170204145258590" alt="这里写图片描述"></p>
+<table>
+<thead>
+<tr>
+<th>表名</th>
+<th>存放数据</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>qrtz_blob_triggers</td>
+<td>以Blob 类型存储的触发器</td>
+</tr>
+<tr>
+<td>qrtz_calendars</td>
+<td>存放日历信息，quartz可配置一个日历来指定一个时间范围</td>
+</tr>
+<tr>
+<td>qrtz_cron_triggers</td>
+<td>存放cron类型的触发器</td>
+</tr>
+<tr>
+<td>qrtz_fired_triggers</td>
+<td>存放已触发的触发器</td>
+</tr>
+<tr>
+<td>qrtz_job_details</td>
+<td>存放一个jobDetail信息</td>
+</tr>
+<tr>
+<td>qrtz_job_listeners</td>
+<td>job监听器</td>
+</tr>
+<tr>
+<td>qrtz_locks</td>
+<td>存储程序的悲观锁的信息(假如使用了悲观锁)</td>
+</tr>
+<tr>
+<td>qrtz_paused_trigger_graps</td>
+<td>存放暂停掉的触发器</td>
+</tr>
+<tr>
+<td>qrtz_scheduler_state</td>
+<td>调度器状态</td>
+</tr>
+<tr>
+<td>qrtz_simple_triggers</td>
+<td>简单触发器的信息</td>
+</tr>
+<tr>
+<td>qrtz_trigger_listeners</td>
+<td>触发器监听器</td>
+</tr>
+<tr>
+<td>qrtz_triggers</td>
+<td>触发器的基本信息</td>
+</tr>
+</tbody></table>
+<p>cron方式需要用到的4张数据表：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">qrtz_triggers，qrtz_cron_triggers，qrtz_fired_triggers，qrtz_job_details</span><br></pre></td></tr></table></figure>
+
+<h2 id="字段详解"><a href="#字段详解" class="headerlink" title="字段详解"></a>字段详解</h2><h3 id="qrtz-blob-triggers"><a href="#qrtz-blob-triggers" class="headerlink" title="qrtz_blob_triggers"></a>qrtz_blob_triggers</h3><p>自定义触发器表</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> `qrtz_blob_triggers` (</span><br><span class="line">  `SCHED_NAME` <span class="type">varchar</span>(<span class="number">120</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span> COMMENT <span class="string">&#x27;计划名称&#x27;</span>,</span><br><span class="line">  `TRIGGER_NAME` <span class="type">varchar</span>(<span class="number">200</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span> COMMENT <span class="string">&#x27;触发器名称&#x27;</span>,</span><br><span class="line">  `TRIGGER_GROUP` <span class="type">varchar</span>(<span class="number">200</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span> COMMENT <span class="string">&#x27;触发器群组&#x27;</span>,</span><br><span class="line">  `BLOB_DATA` <span class="type">blob</span> COMMENT <span class="string">&#x27;基本信息&#x27;</span>,</span><br><span class="line">  <span class="keyword">PRIMARY</span> KEY (`SCHED_NAME`,`TRIGGER_NAME`,`TRIGGER_GROUP`),</span><br><span class="line">  KEY `SCHED_NAME` (`SCHED_NAME`,`TRIGGER_NAME`,`TRIGGER_GROUP`),</span><br><span class="line">  <span class="keyword">CONSTRAINT</span> `qrtz_blob_triggers_ibfk_1` <span class="keyword">FOREIGN</span> KEY (`SCHED_NAME`, `TRIGGER_NAME`, `TRIGGER_GROUP`) <span class="keyword">REFERENCES</span> `qrtz_triggers` (`SCHED_NAME`, `TRIGGER_NAME`, `TRIGGER_GROUP`)</span><br><span class="line">) ENGINE<span class="operator">=</span>InnoDB <span class="keyword">DEFAULT</span> CHARSET<span class="operator">=</span>utf8 COMMENT<span class="operator">=</span><span class="string">&#x27;用于 Quartz 用户用 JDBC 创建他们自己定制的 Trigger 类型，JobStore并不知道如何存储实例的时候&#x27;</span>;</span><br></pre></td></tr></table></figure>
+
+<h3 id="qrtz-calendars"><a href="#qrtz-calendars" class="headerlink" title="qrtz_calendars"></a>qrtz_calendars</h3><p>日历信息触发器</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> `qrtz_calendars` (</span><br><span class="line">  `SCHED_NAME` <span class="type">varchar</span>(<span class="number">120</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span> COMMENT <span class="string">&#x27;计划名称&#x27;</span>,</span><br><span class="line">  `CALENDAR_NAME` <span class="type">varchar</span>(<span class="number">200</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span> COMMENT <span class="string">&#x27;触发器名称&#x27;</span>,</span><br><span class="line">  `CALENDAR` <span class="type">blob</span> <span class="keyword">NOT</span> <span class="keyword">NULL</span> COMMENT <span class="string">&#x27;日历信息&#x27;</span>,</span><br><span class="line">  <span class="keyword">PRIMARY</span> KEY (`SCHED_NAME`,`CALENDAR_NAME`)</span><br><span class="line">) ENGINE<span class="operator">=</span>InnoDB <span class="keyword">DEFAULT</span> CHARSET<span class="operator">=</span>utf8 COMMENT<span class="operator">=</span><span class="string">&#x27;日历信息触发器&#x27;</span>;</span><br></pre></td></tr></table></figure>
+
+<h3 id="qrtz-cron-triggers"><a href="#qrtz-cron-triggers" class="headerlink" title="qrtz_cron_triggers"></a>qrtz_cron_triggers</h3><p>cron 表达式触发器</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> `qrtz_cron_triggers` (</span><br><span class="line">  `SCHED_NAME` <span class="type">varchar</span>(<span class="number">120</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span> COMMENT <span class="string">&#x27;计划名称&#x27;</span>,</span><br><span class="line">  `TRIGGER_NAME` <span class="type">varchar</span>(<span class="number">200</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span> COMMENT <span class="string">&#x27;触发器名称&#x27;</span>,</span><br><span class="line">  `TRIGGER_GROUP` <span class="type">varchar</span>(<span class="number">200</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span> COMMENT <span class="string">&#x27;触发器群组&#x27;</span>,</span><br><span class="line">  `CRON_EXPRESSION` <span class="type">varchar</span>(<span class="number">120</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span> COMMENT <span class="string">&#x27;cron表达式&#x27;</span>,</span><br><span class="line">  `TIME_ZONE_ID` <span class="type">varchar</span>(<span class="number">80</span>) <span class="keyword">DEFAULT</span> <span class="keyword">NULL</span> COMMENT <span class="string">&#x27;时区&#x27;</span>,</span><br><span class="line">  <span class="keyword">PRIMARY</span> KEY (`SCHED_NAME`,`TRIGGER_NAME`,`TRIGGER_GROUP`),</span><br><span class="line">  <span class="keyword">CONSTRAINT</span> `qrtz_cron_triggers_ibfk_1` <span class="keyword">FOREIGN</span> KEY (`SCHED_NAME`, `TRIGGER_NAME`, `TRIGGER_GROUP`) <span class="keyword">REFERENCES</span> `qrtz_triggers` (`SCHED_NAME`, `TRIGGER_NAME`, `TRIGGER_GROUP`)</span><br><span class="line">) ENGINE<span class="operator">=</span>InnoDB <span class="keyword">DEFAULT</span> CHARSET<span class="operator">=</span>utf8 COMMENT<span class="operator">=</span><span class="string">&#x27;cron触发器&#x27;</span>;</span><br></pre></td></tr></table></figure>
+
+<h3 id="qrtz-fired-triggers"><a href="#qrtz-fired-triggers" class="headerlink" title="qrtz_fired_triggers"></a>qrtz_fired_triggers</h3><p>已触发的触发器</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> `qrtz_fired_triggers` (</span><br><span class="line">  `SCHED_NAME` <span class="type">varchar</span>(<span class="number">120</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span> COMMENT <span class="string">&#x27;计划名称&#x27;</span>,</span><br><span class="line">  `ENTRY_ID` <span class="type">varchar</span>(<span class="number">95</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span> COMMENT <span class="string">&#x27;组织id&#x27;</span>,</span><br><span class="line">  `TRIGGER_NAME` <span class="type">varchar</span>(<span class="number">200</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span> COMMENT <span class="string">&#x27;触发器名称&#x27;</span>,</span><br><span class="line">  `TRIGGER_GROUP` <span class="type">varchar</span>(<span class="number">200</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span> COMMENT <span class="string">&#x27;触发器组&#x27;</span>,</span><br><span class="line">  `INSTANCE_NAME` <span class="type">varchar</span>(<span class="number">200</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span> COMMENT <span class="string">&#x27;实例名称&#x27;</span>,</span><br><span class="line">  `FIRED_TIME` <span class="type">bigint</span>(<span class="number">13</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span> COMMENT <span class="string">&#x27;触发时间&#x27;</span>,</span><br><span class="line">  `SCHED_TIME` <span class="type">bigint</span>(<span class="number">13</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span> COMMENT <span class="string">&#x27;计划时间&#x27;</span>,</span><br><span class="line">  `PRIORITY` <span class="type">int</span>(<span class="number">11</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span> COMMENT <span class="string">&#x27;权重&#x27;</span>,</span><br><span class="line">  `STATE` <span class="type">varchar</span>(<span class="number">16</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span> COMMENT <span class="string">&#x27;状态&#x27;</span>,</span><br><span class="line">  `JOB_NAME` <span class="type">varchar</span>(<span class="number">200</span>) <span class="keyword">DEFAULT</span> <span class="keyword">NULL</span> COMMENT <span class="string">&#x27;作业名称&#x27;</span>,</span><br><span class="line">  `JOB_GROUP` <span class="type">varchar</span>(<span class="number">200</span>) <span class="keyword">DEFAULT</span> <span class="keyword">NULL</span> COMMENT <span class="string">&#x27;作业群组&#x27;</span>,</span><br><span class="line">  `IS_NONCONCURRENT` <span class="type">varchar</span>(<span class="number">1</span>) <span class="keyword">DEFAULT</span> <span class="keyword">NULL</span> COMMENT <span class="string">&#x27;是否并行&#x27;</span>,</span><br><span class="line">  `REQUESTS_RECOVERY` <span class="type">varchar</span>(<span class="number">1</span>) <span class="keyword">DEFAULT</span> <span class="keyword">NULL</span> COMMENT <span class="string">&#x27;是否要求唤醒&#x27;</span>,</span><br><span class="line">  <span class="keyword">PRIMARY</span> KEY (`SCHED_NAME`,`ENTRY_ID`),</span><br><span class="line">  KEY `IDX_QRTZ_FT_TRIG_INST_NAME` (`SCHED_NAME`,`INSTANCE_NAME`),</span><br><span class="line">  KEY `IDX_QRTZ_FT_INST_JOB_REQ_RCVRY` (`SCHED_NAME`,`INSTANCE_NAME`,`REQUESTS_RECOVERY`),</span><br><span class="line">  KEY `IDX_QRTZ_FT_J_G` (`SCHED_NAME`,`JOB_NAME`,`JOB_GROUP`),</span><br><span class="line">  KEY `IDX_QRTZ_FT_JG` (`SCHED_NAME`,`JOB_GROUP`),</span><br><span class="line">  KEY `IDX_QRTZ_FT_T_G` (`SCHED_NAME`,`TRIGGER_NAME`,`TRIGGER_GROUP`),</span><br><span class="line">  KEY `IDX_QRTZ_FT_TG` (`SCHED_NAME`,`TRIGGER_GROUP`)</span><br><span class="line">) ENGINE<span class="operator">=</span>InnoDB <span class="keyword">DEFAULT</span> CHARSET<span class="operator">=</span>utf8 COMMENT<span class="operator">=</span><span class="string">&#x27;存储与已触发的 Trigger 相关的状态信息，以及相联 Job的执行信息QRTZ_PAUSED_TRIGGER_GRPS 存储已暂停的 Trigger组的信息&#x27;</span>;</span><br></pre></td></tr></table></figure>
+
+<h3 id="qrtz-job-details"><a href="#qrtz-job-details" class="headerlink" title="qrtz_job_details"></a>qrtz_job_details</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> `qrtz_job_details` (</span><br><span class="line">  `SCHED_NAME` <span class="type">varchar</span>(<span class="number">120</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span> COMMENT <span class="string">&#x27;调度器名称&#x27;</span>,</span><br><span class="line">  `JOB_NAME` <span class="type">varchar</span>(<span class="number">200</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span> COMMENT <span class="string">&#x27;任务名称&#x27;</span>,</span><br><span class="line">  `JOB_GROUP` <span class="type">varchar</span>(<span class="number">200</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span> COMMENT <span class="string">&#x27;任务群组&#x27;</span>,</span><br><span class="line">  `DESCRIPTION` <span class="type">varchar</span>(<span class="number">250</span>) <span class="keyword">DEFAULT</span> <span class="keyword">NULL</span> COMMENT <span class="string">&#x27;说明&#x27;</span>,</span><br><span class="line">  `JOB_CLASS_NAME` <span class="type">varchar</span>(<span class="number">250</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span> COMMENT <span class="string">&#x27;任务class全路径&#x27;</span>,</span><br><span class="line">  `IS_DURABLE` <span class="type">varchar</span>(<span class="number">1</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span> COMMENT <span class="string">&#x27;是否持久化,值为1会把job持久化到数据库中&#x27;</span>,</span><br><span class="line">  `IS_NONCONCURRENT` <span class="type">varchar</span>(<span class="number">1</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span> COMMENT <span class="string">&#x27;是否并行&#x27;</span>,</span><br><span class="line">  `IS_UPDATE_DATA` <span class="type">varchar</span>(<span class="number">1</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span>,</span><br><span class="line">  `REQUESTS_RECOVERY` <span class="type">varchar</span>(<span class="number">1</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span> COMMENT <span class="string">&#x27;是否要求唤醒&#x27;</span>,</span><br><span class="line">  `JOB_DATA` <span class="type">blob</span>,</span><br><span class="line">  <span class="keyword">PRIMARY</span> KEY (`SCHED_NAME`,`JOB_NAME`,`JOB_GROUP`),</span><br><span class="line">  KEY `IDX_QRTZ_J_REQ_RECOVERY` (`SCHED_NAME`,`REQUESTS_RECOVERY`),</span><br><span class="line">  KEY `IDX_QRTZ_J_GRP` (`SCHED_NAME`,`JOB_GROUP`)</span><br><span class="line">) ENGINE<span class="operator">=</span>InnoDB <span class="keyword">DEFAULT</span> CHARSET<span class="operator">=</span>utf8;</span><br></pre></td></tr></table></figure>
+
+<h3 id="qrtz-locks"><a href="#qrtz-locks" class="headerlink" title="qrtz_locks"></a>qrtz_locks</h3><p>在集群模式下，通过悲观锁来保证触发器有序的获取。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> `qrtz_locks` (</span><br><span class="line">  `SCHED_NAME` <span class="type">varchar</span>(<span class="number">120</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span> COMMENT <span class="string">&#x27;计划名称&#x27;</span>,</span><br><span class="line">  `LOCK_NAME` <span class="type">varchar</span>(<span class="number">40</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span> COMMENT <span class="string">&#x27;锁名称&#x27;</span>,</span><br><span class="line">  <span class="keyword">PRIMARY</span> KEY (`SCHED_NAME`,`LOCK_NAME`)</span><br><span class="line">) ENGINE<span class="operator">=</span>InnoDB <span class="keyword">DEFAULT</span> CHARSET<span class="operator">=</span>utf8 COMMENT<span class="operator">=</span><span class="string">&#x27;通过悲观锁获取触发器&#x27;</span>;</span><br></pre></td></tr></table></figure>
+
+<h3 id="qrtz-paused-trigger-grps"><a href="#qrtz-paused-trigger-grps" class="headerlink" title="qrtz_paused_trigger_grps"></a>qrtz_paused_trigger_grps</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> `qrtz_paused_trigger_grps` (</span><br><span class="line">  `SCHED_NAME` <span class="type">varchar</span>(<span class="number">120</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span> COMMENT <span class="string">&#x27;计划名称&#x27;</span>,</span><br><span class="line">  `TRIGGER_GROUP` <span class="type">varchar</span>(<span class="number">200</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span> COMMENT <span class="string">&#x27;触发器组&#x27;</span>,</span><br><span class="line">  <span class="keyword">PRIMARY</span> KEY (`SCHED_NAME`,`TRIGGER_GROUP`)</span><br><span class="line">) ENGINE<span class="operator">=</span>InnoDB <span class="keyword">DEFAULT</span> CHARSET<span class="operator">=</span>utf8 COMMENT<span class="operator">=</span><span class="string">&#x27;被暂停的触发器&#x27;</span>;</span><br></pre></td></tr></table></figure>
+
+<h3 id="qrtz-scheduler-state"><a href="#qrtz-scheduler-state" class="headerlink" title="qrtz_scheduler_state"></a>qrtz_scheduler_state</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> `qrtz_scheduler_state` (</span><br><span class="line">  `SCHED_NAME` <span class="type">varchar</span>(<span class="number">120</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span> COMMENT <span class="string">&#x27;调度器名称&#x27;</span>,</span><br><span class="line">  `INSTANCE_NAME` <span class="type">varchar</span>(<span class="number">200</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span>,</span><br><span class="line">  `LAST_CHECKIN_TIME` <span class="type">bigint</span>(<span class="number">13</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span> COMMENT <span class="string">&#x27;最后验证时间&#x27;</span>,</span><br><span class="line">  `CHECKIN_INTERVAL` <span class="type">bigint</span>(<span class="number">13</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span> COMMENT <span class="string">&#x27;时间间隔&#x27;</span>,</span><br><span class="line">  <span class="keyword">PRIMARY</span> KEY (`SCHED_NAME`,`INSTANCE_NAME`)</span><br><span class="line">) ENGINE<span class="operator">=</span>InnoDB <span class="keyword">DEFAULT</span> CHARSET<span class="operator">=</span>utf8;</span><br></pre></td></tr></table></figure>
+
+<h3 id="qrtz-simple-triggers"><a href="#qrtz-simple-triggers" class="headerlink" title="qrtz_simple_triggers"></a>qrtz_simple_triggers</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> `qrtz_simple_triggers` (</span><br><span class="line">  `SCHED_NAME` <span class="type">varchar</span>(<span class="number">120</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span> COMMENT <span class="string">&#x27;计划名称&#x27;</span>,</span><br><span class="line">  `TRIGGER_NAME` <span class="type">varchar</span>(<span class="number">200</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span> COMMENT <span class="string">&#x27;触发器名称&#x27;</span>,</span><br><span class="line">  `TRIGGER_GROUP` <span class="type">varchar</span>(<span class="number">200</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span> COMMENT <span class="string">&#x27;触发器组&#x27;</span>,</span><br><span class="line">  `REPEAT_COUNT` <span class="type">bigint</span>(<span class="number">7</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span> COMMENT <span class="string">&#x27;重复次数&#x27;</span>,</span><br><span class="line">  `REPEAT_INTERVAL` <span class="type">bigint</span>(<span class="number">12</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span> COMMENT <span class="string">&#x27;重复间隔&#x27;</span>,</span><br><span class="line">  `TIMES_TRIGGERED` <span class="type">bigint</span>(<span class="number">10</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span> COMMENT <span class="string">&#x27;触发次数&#x27;</span>,</span><br><span class="line">  <span class="keyword">PRIMARY</span> KEY (`SCHED_NAME`,`TRIGGER_NAME`,`TRIGGER_GROUP`),</span><br><span class="line">  <span class="keyword">CONSTRAINT</span> `qrtz_simple_triggers_ibfk_1` <span class="keyword">FOREIGN</span> KEY (`SCHED_NAME`, `TRIGGER_NAME`, `TRIGGER_GROUP`) <span class="keyword">REFERENCES</span> `qrtz_triggers` (`SCHED_NAME`, `TRIGGER_NAME`, `TRIGGER_GROUP`)</span><br><span class="line">) ENGINE<span class="operator">=</span>InnoDB <span class="keyword">DEFAULT</span> CHARSET<span class="operator">=</span>utf8 COMMENT<span class="operator">=</span><span class="string">&#x27;存储简单的Trigger，包括重复次数，间隔，以及已触的次数&#x27;</span>;</span><br></pre></td></tr></table></figure>
+
+<h3 id="qrtz-triggers"><a href="#qrtz-triggers" class="headerlink" title="qrtz_triggers"></a>qrtz_triggers</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> `qrtz_triggers` (</span><br><span class="line">  `SCHED_NAME` <span class="type">varchar</span>(<span class="number">120</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span> COMMENT <span class="string">&#x27;计划名称&#x27;</span>,</span><br><span class="line">  `TRIGGER_NAME` <span class="type">varchar</span>(<span class="number">200</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span> COMMENT <span class="string">&#x27;触发器名称&#x27;</span>,</span><br><span class="line">  `TRIGGER_GROUP` <span class="type">varchar</span>(<span class="number">200</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span> COMMENT <span class="string">&#x27;触发器群组&#x27;</span>,</span><br><span class="line">  `JOB_NAME` <span class="type">varchar</span>(<span class="number">200</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span> COMMENT <span class="string">&#x27;作业名称&#x27;</span>,</span><br><span class="line">  `JOB_GROUP` <span class="type">varchar</span>(<span class="number">200</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span> COMMENT <span class="string">&#x27;作业群组&#x27;</span>,</span><br><span class="line">  `DESCRIPTION` <span class="type">varchar</span>(<span class="number">250</span>) <span class="keyword">DEFAULT</span> <span class="keyword">NULL</span> COMMENT <span class="string">&#x27;说明信息&#x27;</span>,</span><br><span class="line">  `NEXT_FIRE_TIME` <span class="type">bigint</span>(<span class="number">13</span>) <span class="keyword">DEFAULT</span> <span class="keyword">NULL</span> COMMENT <span class="string">&#x27;下次执行时间&#x27;</span>,</span><br><span class="line">  `PREV_FIRE_TIME` <span class="type">bigint</span>(<span class="number">13</span>) <span class="keyword">DEFAULT</span> <span class="keyword">NULL</span> COMMENT <span class="string">&#x27;上次执行时间&#x27;</span>,</span><br><span class="line">  `PRIORITY` <span class="type">int</span>(<span class="number">11</span>) <span class="keyword">DEFAULT</span> <span class="keyword">NULL</span> COMMENT <span class="string">&#x27;线程优先级&#x27;</span>,</span><br><span class="line">  `TRIGGER_STATE` <span class="type">varchar</span>(<span class="number">16</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span> COMMENT <span class="string">&#x27;触发状态此字段很重要&#x27;</span>,</span><br><span class="line">  `TRIGGER_TYPE` <span class="type">varchar</span>(<span class="number">8</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span> COMMENT <span class="string">&#x27;触发器类型&#x27;</span>,</span><br><span class="line">  `START_TIME` <span class="type">bigint</span>(<span class="number">13</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span> COMMENT <span class="string">&#x27;开始时间&#x27;</span>,</span><br><span class="line">  `END_TIME` <span class="type">bigint</span>(<span class="number">13</span>) <span class="keyword">DEFAULT</span> <span class="keyword">NULL</span> COMMENT <span class="string">&#x27;结束时间&#x27;</span>,</span><br><span class="line">  `CALENDAR_NAME` <span class="type">varchar</span>(<span class="number">200</span>) <span class="keyword">DEFAULT</span> <span class="keyword">NULL</span> COMMENT <span class="string">&#x27;日历名称&#x27;</span>,</span><br><span class="line">  `MISFIRE_INSTR` <span class="type">smallint</span>(<span class="number">2</span>) <span class="keyword">DEFAULT</span> <span class="keyword">NULL</span>,</span><br><span class="line">  `JOB_DATA` <span class="type">blob</span>,</span><br><span class="line">  <span class="keyword">PRIMARY</span> KEY (`SCHED_NAME`,`TRIGGER_NAME`,`TRIGGER_GROUP`),</span><br><span class="line">  KEY `IDX_QRTZ_T_J` (`SCHED_NAME`,`JOB_NAME`,`JOB_GROUP`),</span><br><span class="line">  KEY `IDX_QRTZ_T_JG` (`SCHED_NAME`,`JOB_GROUP`),</span><br><span class="line">  KEY `IDX_QRTZ_T_C` (`SCHED_NAME`,`CALENDAR_NAME`),</span><br><span class="line">  KEY `IDX_QRTZ_T_G` (`SCHED_NAME`,`TRIGGER_GROUP`),</span><br><span class="line">  KEY `IDX_QRTZ_T_STATE` (`SCHED_NAME`,`TRIGGER_STATE`),</span><br><span class="line">  KEY `IDX_QRTZ_T_N_STATE` (`SCHED_NAME`,`TRIGGER_NAME`,`TRIGGER_GROUP`,`TRIGGER_STATE`),</span><br><span class="line">  KEY `IDX_QRTZ_T_N_G_STATE` (`SCHED_NAME`,`TRIGGER_GROUP`,`TRIGGER_STATE`),</span><br><span class="line">  KEY `IDX_QRTZ_T_NEXT_FIRE_TIME` (`SCHED_NAME`,`NEXT_FIRE_TIME`),</span><br><span class="line">  KEY `IDX_QRTZ_T_NFT_ST` (`SCHED_NAME`,`TRIGGER_STATE`,`NEXT_FIRE_TIME`),</span><br><span class="line">  KEY `IDX_QRTZ_T_NFT_MISFIRE` (`SCHED_NAME`,`MISFIRE_INSTR`,`NEXT_FIRE_TIME`),</span><br><span class="line">  KEY `IDX_QRTZ_T_NFT_ST_MISFIRE` (`SCHED_NAME`,`MISFIRE_INSTR`,`NEXT_FIRE_TIME`,`TRIGGER_STATE`),</span><br><span class="line">  KEY `IDX_QRTZ_T_NFT_ST_MISFIRE_GRP` (`SCHED_NAME`,`MISFIRE_INSTR`,`NEXT_FIRE_TIME`,`TRIGGER_GROUP`,`TRIGGER_STATE`),</span><br><span class="line">  <span class="keyword">CONSTRAINT</span> `qrtz_triggers_ibfk_1` <span class="keyword">FOREIGN</span> KEY (`SCHED_NAME`, `JOB_NAME`, `JOB_GROUP`) <span class="keyword">REFERENCES</span> `qrtz_job_details` (`SCHED_NAME`, `JOB_NAME`, `JOB_GROUP`)</span><br><span class="line">) ENGINE<span class="operator">=</span>InnoDB <span class="keyword">DEFAULT</span> CHARSET<span class="operator">=</span>utf8 COMMENT<span class="operator">=</span><span class="string">&#x27;触发器和作业绑定&#x27;</span>;</span><br></pre></td></tr></table></figure>
+
+<h2 id="quartz体系结构"><a href="#quartz体系结构" class="headerlink" title="quartz体系结构"></a>quartz体系结构</h2><h3 id="Quartz-API"><a href="#Quartz-API" class="headerlink" title="Quartz API"></a>Quartz API</h3><p>Quartz API的关键接口是：</p>
+<ul>
+<li>Scheduler - 与调度程序交互的主要API。可以注册Trigger和JobDetails到Scheduler中,当Trigger触发时，对应的Job就被执行</li>
+<li>Job - 你想要调度器执行的任务组件需要实现的接口</li>
+<li>JobDetail - 用于定义作业的实例。</li>
+<li>Trigger（即触发器） - 定义执行给定作业的计划的触发条件。</li>
+<li>JobBuilder - 用于定义/构建 JobDetail 实例，用于定义作业的实例。</li>
+<li>TriggerBuilder - 用于定义/构建触发器实例。</li>
+<li>Scheduler 的生命期，从 SchedulerFactory 创建它时开始，到 Scheduler 调用shutdown() 方法时结束；Scheduler 被创建后，可以增加、删除和列举 Job 和 Trigger，以及执行其它与调度相关的操作（如暂停 Trigger）。但是，Scheduler 只有在调用 start() 方法后，才会真正地触发 trigger（即执行 job）</li>
+</ul>
+<h3 id="Job"><a href="#Job" class="headerlink" title="Job"></a>Job</h3><p>一个 job 就是一个实现了 Job 接口的类，该接口只有一个方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> org.quartz;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Job</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">execute</span><span class="params">(JobExecutionContext context)</span></span></span><br><span class="line"><span class="function">        <span class="keyword">throws</span> JobExecutionException</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>job的一个 trigger 被触发后，execute() 方法会被 scheduler 的一个工作线程调用；传递给 execute() 方法的 JobExecutionContext 对象中保存着该 job 运行时的一些信息 ，执行 job 的 scheduler 的引用，触发 job 的 trigger 的引用，JobDetail 对象引用，以及一些其它信息。</p>
+<p><strong>注解</strong></p>
+<ul>
+<li><p>@DisallowConcurrentExecution：将该注解加到job类上，告诉Quartz不要并发地执行同一个job定义（这里指特定的job类）的多个实例。</p>
+</li>
+<li><p>@PersistJobDataAfterExecution：将该注解加在job类上，告诉Quartz在成功执行了job类的execute方法后（没有发生任何异常），更新JobDetail中JobDataMap的数据，使得该job（即JobDetail）在下一次执行的时候，JobDataMap中是更新后的数据，而不是更新前的旧数据。</p>
+</li>
+</ul>
+<p><strong>属性</strong></p>
+<ul>
+<li>Durability：如果一个job是非持久的，当没有活跃的trigger与之关联的时候，会被自动地从scheduler中删除。也就是说，非持久的job的生命期是由trigger的存在与否决定的；</li>
+<li>RequestsRecovery：如果一个job是可恢复的，并且在其执行的时候，scheduler发生硬关闭（hard shutdown)（比如运行的进程崩溃了，或者关机了），则当scheduler重新启动的时候，该job会被重新执行。此时，该job的JobExecutionContext.isRecovering() 返回true。</li>
+</ul>
+<h3 id="Trigger"><a href="#Trigger" class="headerlink" title="Trigger"></a>Trigger</h3><p>Trigger 用于触发 Job 的执行。当你准备调度一个 job 时，你创建一个 Trigger 的实例，然后设置调度相关的属性。Trigger 也有一个相关联的 JobDataMap，用于给 Job 传递一些触发相关的参数。Quartz 自带了各种不同类型的 Trigger，最常用的主要是 SimpleTrigger 和 CronTrigger。</p>
+<p>一个Job可以对应多个Trigger，但一个Trigger只能对应一个Job。</p>
+<p>当一个trigger被触发时，与之关联的JobDetail实例会被加载，JobDetail引用的job类通过配置在Scheduler上的JobFactory进行初始化。默认的JobFactory实现，仅仅是调用job类的newInstance()方法，然后尝试调用JobDataMap中的key的setter方法。</p>
+<h4 id="TRIGGER-STATE的值"><a href="#TRIGGER-STATE的值" class="headerlink" title="TRIGGER_STATE的值"></a>TRIGGER_STATE的值</h4><p>WAITING:等待 </p>
+<p>PAUSED:暂停 </p>
+<p>ACQUIRED:正常执行 </p>
+<p>BLOCKED：阻塞 </p>
+<p>ERROR：错误</p>
+<h3 id="错过触发"><a href="#错过触发" class="headerlink" title="错过触发"></a>错过触发</h3><p>MISFIRE_INSTR</p>
+<p>MisFire策略常量的定义在类CronTrigger中，列举如下：</p>
+<table>
+<thead>
+<tr>
+<th>常量值</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>withMisfireHandlingInstructionDoNothing</td>
+<td>不触发立即执行,等待下次Cron触发频率到达时刻开始按照Cron频率依次执行</td>
+</tr>
+<tr>
+<td>withMisfireHandlingInstructionIgnoreMisfires</td>
+<td>以错过的第一个频率时间立刻开始执行,重做错过的所有频率周期后,当下一次触发频率发生时间大于当前时间后，再按照正常的Cron频率依次执行</td>
+</tr>
+<tr>
+<td>withMisfireHandlingInstructionFireAndProceed</td>
+<td>以当前时间为触发频率立刻触发一次执行,然后按照Cron频率依次执行</td>
+</tr>
+</tbody></table>
+<p><strong>公共属性</strong></p>
+<ul>
+<li><p>TriggerKey属性：表示trigger的身份</p>
+</li>
+<li><p>jobKey属性：当trigger触发时被执行的job的身份；</p>
+</li>
+<li><p>startTime属性：设置trigger第一次触发的时间；该属性的值是java.util.Date类型，表示某个指定的时间点；有些类型的trigger，会在设置的startTime时立即触发，有些类型的trigger，表示其触发是在startTime之后开始生效。比如，现在是1月份，你设置了一个trigger–“在每个月的第5天执行”，然后你将startTime属性设置为4月1号，则该trigger第一次触发会是在几个月以后了(即4月5号)。</p>
+</li>
+<li><p>endTime属性：表示trigger失效的时间点。比如，”每月第5天执行”的trigger，如果其endTime是7月1号，则其最后一次执行时间是6月5号。</p>
+</li>
+</ul>
+<p><strong>优先级</strong></p>
+<p>如果Quartz可能没有足够的资源同时触发所有的trigger,可以设置哪个trigger优先使用Quartz的工作线程，设置<strong>priority</strong>属性。比如，你有N个trigger需要同时触发，但只有Z个工作线程，优先级最高的Z个trigger会被首先触发。如果没有为trigger设置优先级，trigger使用默认优先级，值为5；priority属性的值可以是任意整数，正数、负数都可以。</p>
+<p>注意：只有同时触发的trigger之间才会比较优先级。10:59触发的trigger总是在11:00触发的trigger之前执行。</p>
+<p>注意：如果trigger是可恢复的，在恢复后再调度时，优先级与原trigger是一样的。</p>
+<p><strong>错过触发</strong>(misfire Instructions)</p>
+<p>trigger还有一个重要的属性misfire；如果scheduler关闭了，或者Quartz线程池中没有可用的线程来执行job，此时持久性的trigger就会错过(miss)其触发时间，即错过触发(misfire)。不同类型的trigger，有不同的misfire机制。它们默认都使用“智能机制(smart policy)”，即根据trigger的类型和配置动态调整行为。当scheduler启动的时候，查询所有错过触发(misfire)的持久性trigger。然后根据它们各自的misfire机制更新trigger的信息。</p>
+<p><strong>日历</strong></p>
+<p>Quartz的Calendar对象(不是java.util.Calendar对象)可以在定义和存储trigger的时候与trigger进行关联。Calendar用于从trigger的调度计划中排除时间段。</p>
+<h3 id="key"><a href="#key" class="headerlink" title="key"></a>key</h3><p>将 Job 和 Trigger 注册到 Scheduler 时，可以为它们设置 key，配置其身份属性。 Job 和 Trigger 的 key（JobKey 和 TriggerKey）可以用于将 Job 和 Trigger 放到不同的分组（group）里，然后基于分组进行操作。同一个分组下的 Job 或 Trigger 的名称必须唯一，即一个 Job 或 Trigger 的 key 由名称（name）和分组（group）组成。</p>
+<h3 id="JobDataMap"><a href="#JobDataMap" class="headerlink" title="JobDataMap"></a>JobDataMap</h3><p>JobDataMap中可以包含不限量的（序列化的）数据对象，在job实例执行的时候，可以使用其中的数据</p>
+<p>JobDataMap是Java Map接口的一个实现，额外增加了一些便于存取基本类型的数据的方法。</p>
+<p>将job加入到scheduler之前，在构建JobDetail时，可以将数据放入JobDataMap</p>
+<p><strong>存</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">JobDetail job = newJob(DumbJob.class)</span><br><span class="line">    .withIdentity(<span class="string">&quot;myJob&quot;</span>, <span class="string">&quot;group1&quot;</span>) <span class="comment">// name &quot;myJob&quot;, group &quot;group1&quot;</span></span><br><span class="line">    .usingJobData(<span class="string">&quot;jobSays&quot;</span>, <span class="string">&quot;Hello World!&quot;</span>)</span><br><span class="line">    .usingJobData(<span class="string">&quot;myFloatValue&quot;</span>, <span class="number">3.141f</span>)</span><br><span class="line">    .build();</span><br></pre></td></tr></table></figure>
+
+<p><strong>取</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DumbJob</span> <span class="keyword">implements</span> <span class="title">Job</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">DumbJob</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">execute</span><span class="params">(JobExecutionContext context)</span></span></span><br><span class="line"><span class="function">        <span class="keyword">throws</span> JobExecutionException</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        JobKey key = context.getJobDetail().getKey();</span><br><span class="line"></span><br><span class="line">        JobDataMap dataMap = context.getJobDetail().getJobDataMap();</span><br><span class="line"></span><br><span class="line">        String jobSays = dataMap.getString(<span class="string">&quot;jobSays&quot;</span>);</span><br><span class="line">        <span class="keyword">float</span> myFloatValue = dataMap.getFloat(<span class="string">&quot;myFloatValue&quot;</span>);</span><br><span class="line"></span><br><span class="line">        System.err.println(<span class="string">&quot;Instance &quot;</span> + key + <span class="string">&quot; of DumbJob says: &quot;</span> + jobSays + <span class="string">&quot;, and val is: &quot;</span> + myFloatValue);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="TriggerListeners和JobListeners"><a href="#TriggerListeners和JobListeners" class="headerlink" title="TriggerListeners和JobListeners"></a>TriggerListeners和JobListeners</h3><p><strong>Listeners</strong>是用于根据调度程序中发生的事件执行操作</p>
+<p>与Trigger相关的事件包括：触发器触发，触发失灵，触发完成</p>
+<p>与job相关的事件包括：job即将执行的通知，以及job完成执行时的通知</p>
+<p><strong>使用Listeners</strong></p>
+<p>要创建一个listener，只需创建一个实现org.quartz.TriggerListener和/或org.quartz.JobListener接口的对象。然后，listener在运行时会向调度程序注册，并且必须给出一个名称（或者，他们必须通过他们的getName（）方法来宣传自己的名字）。</p>
+<p>为了方便起见，实现这些接口，您的类也可以扩展JobListenerSupport类或TriggerListenerSupport类，并且只需覆盖您感兴趣的事件。</p>
+<p>listener与调度程序的ListenerManager一起注册，并配有描述listener希望接收事件的job/触发器的Matcher。</p>
+<p><strong>添加对特定job感兴趣的JobListener：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scheduler.getListenerManager().addJobListener(myJobListener，KeyMatcher.jobKeyEquals(new JobKey(&quot;myJobName&quot;，&quot;myJobGroup&quot;)));</span><br></pre></td></tr></table></figure>
+
+<p><strong>添加对特定组的所有job感兴趣的JobListener：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scheduler.getListenerManager().addJobListener(myJobListener, jobGroupEquals(&quot;myJobGroup&quot;));</span><br></pre></td></tr></table></figure>
+
+<p><strong>添加对两个特定组的所有job感兴趣的JobListener：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scheduler.getListenerManager().addJobListener(myJobListener, or(jobGroupEquals(&quot;myJobGroup&quot;), jobGroupEquals(&quot;yourGroup&quot;)));</span><br></pre></td></tr></table></figure>
+
+<p><strong>添加对所有job感兴趣的JobListener：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scheduler.getListenerManager().addJobListener(myJobListener, allJobs());</span><br></pre></td></tr></table></figure>
+
+<h3 id="Job-Stores"><a href="#Job-Stores" class="headerlink" title="Job Stores"></a>Job Stores</h3><p>RAMJobStore    将所有数据保存在RAM中,速度快但易失</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">org.quartz.jobStore.class = org.quartz.simpl.RAMJobStore</span><br></pre></td></tr></table></figure>
+
+<p>JDBC JobStore    通过JDBC将其所有数据保存在数据库中</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">org.quartz.jobStore.class = org.quartz.impl.jdbcjobstore.JobStoreTX</span><br></pre></td></tr></table></figure>
+
+<h2 id="quartz-properties"><a href="#quartz-properties" class="headerlink" title="quartz.properties"></a>quartz.properties</h2><figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 调度标识名 集群中每一个实例都必须使用相同的名称 （区分特定的调度器实例）</span></span><br><span class="line"><span class="meta">org.quartz.scheduler.instanceName</span>=<span class="string">DefaultQuartzScheduler</span></span><br><span class="line"><span class="comment"># ID设置为自动获取 每一个必须不同 （所有调度器实例中是唯一的）</span></span><br><span class="line"><span class="meta">org.quartz.scheduler.instanceId</span>=<span class="string">AUTO</span></span><br><span class="line"><span class="comment"># 使用内存存储quartz的所有数据，包括job和trigger的配置</span></span><br><span class="line"><span class="comment">#org.quartz.jobStore.class  =  org.quartz.simpl.RAMJobStore</span></span><br><span class="line"><span class="comment"># 数据保存方式为持久化</span></span><br><span class="line"><span class="meta">org.quartz.jobStore.class</span>=<span class="string">org.quartz.impl.jdbcjobstore.JobStoreTX</span></span><br><span class="line"><span class="comment"># 表的前缀</span></span><br><span class="line"><span class="meta">org.quartz.jobStore.tablePrefix</span>=<span class="string">QRTZ_</span></span><br><span class="line"><span class="comment"># 设置为TRUE不会出现序列化非字符串类到 BLOB 时产生的类版本问题</span></span><br><span class="line"><span class="comment"># org.quartz.jobStore.useProperties = true</span></span><br><span class="line"><span class="comment"># 加入集群 true 为集群 false不是集群</span></span><br><span class="line"><span class="meta">org.quartz.jobStore.isClustered</span>=<span class="string">false</span></span><br><span class="line"><span class="comment"># 调度实例失效的检查时间间隔</span></span><br><span class="line"><span class="meta">org.quartz.jobStore.clusterCheckinInterval</span>=<span class="string">20000</span></span><br><span class="line"><span class="comment"># 容许的最大作业延长时间</span></span><br><span class="line"><span class="meta">org.quartz.jobStore.misfireThreshold</span>=<span class="string">60000</span></span><br><span class="line"><span class="comment"># ThreadPool 实现的类名</span></span><br><span class="line"><span class="meta">org.quartz.threadPool.class</span>=<span class="string">org.quartz.simpl.SimpleThreadPool</span></span><br><span class="line"><span class="comment"># 线程池中有10个线程，这意味着最多可以同时运行10个job</span></span><br><span class="line"><span class="meta">org.quartz.threadPool.threadCount</span>=<span class="string">10</span></span><br><span class="line"><span class="comment"># 线程优先级</span></span><br><span class="line"><span class="meta">org.quartz.threadPool.threadPriority</span>=<span class="string">5（threadPriority 属性的最大值是常量 java.lang.Thread.MAX_PRIORITY，等于10。最小值为常量 java.lang.Thread.MIN_PRIORITY，为1）</span></span><br><span class="line"><span class="comment"># 自创建父线程</span></span><br><span class="line"><span class="comment"># org.quartz.threadPool.threadsInheritContextClassLoaderOfInitializingThread =  true</span></span><br><span class="line"><span class="comment"># 数据库别名</span></span><br><span class="line"><span class="meta">org.quartz.jobStore.dataSource</span>=<span class="string">qzDS</span></span><br><span class="line"><span class="comment"># 设置数据源</span></span><br><span class="line"><span class="meta">org.quartz.dataSource.qzDS.driver</span>=<span class="string">com.mysql.jdbc.Driver</span></span><br><span class="line"><span class="meta">org.quartz.dataSource.qzDS.URL</span>=<span class="string">jdbc:mysql://localhost:3306/quartz</span></span><br><span class="line"><span class="meta">org.quartz.dataSource.qzDS.user</span>=<span class="string">root</span></span><br><span class="line"><span class="meta">org.quartz.dataSource.qzDS.password</span>=<span class="string">123456</span></span><br><span class="line"><span class="meta">org.quartz.dataSource.qzDS.maxConnection</span>=<span class="string">10</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="简单实例"><a href="#简单实例" class="headerlink" title="简单实例"></a>简单实例</h2><p>依赖</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.quartz-scheduler<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>quartz<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.3.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>job</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PrintJob</span> <span class="keyword">extends</span> <span class="title">QuartzJobBean</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">executeInternal</span><span class="params">(<span class="keyword">final</span> JobExecutionContext context)</span> <span class="keyword">throws</span> JobExecutionException </span>&#123;</span><br><span class="line"></span><br><span class="line">        System.out.println(<span class="string">&quot;当前时间: &quot;</span> + <span class="keyword">new</span> Date());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Scheduler</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyScheduler</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> SchedulerException, InterruptedException </span>&#123;</span><br><span class="line">        <span class="comment">// 1、创建调度器Scheduler</span></span><br><span class="line">        SchedulerFactory schedulerFactory = <span class="keyword">new</span> StdSchedulerFactory();</span><br><span class="line">        Scheduler scheduler = schedulerFactory.getScheduler();</span><br><span class="line">        <span class="comment">// 2、创建JobDetail实例，并与PrintWordsJob类绑定(Job执行内容)</span></span><br><span class="line">        JobDetail jobDetail = JobBuilder.newJob(PrintJob.class)</span><br><span class="line">                                        .withIdentity(<span class="string">&quot;job1&quot;</span>, <span class="string">&quot;group1&quot;</span>).build();</span><br><span class="line">        <span class="comment">// 3、构建Trigger实例,每隔1s执行一次</span></span><br><span class="line">        Trigger trigger = TriggerBuilder.newTrigger().withIdentity(<span class="string">&quot;trigger1&quot;</span>, <span class="string">&quot;triggerGroup1&quot;</span>)</span><br><span class="line">                .startNow()<span class="comment">//立即生效</span></span><br><span class="line">                .withSchedule(SimpleScheduleBuilder.simpleSchedule()</span><br><span class="line">                .withIntervalInSeconds(<span class="number">1</span>)<span class="comment">//每隔1s执行一次</span></span><br><span class="line">                .repeatForever()).build();<span class="comment">//一直执行</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">//4、绑定schedule和jobDetail</span></span><br><span class="line">        scheduler.scheduleJob(jobDetail, trigger);</span><br><span class="line">        System.out.println(<span class="string">&quot;--------scheduler start ! ------------&quot;</span>);</span><br><span class="line">        <span class="comment">//5、执行</span></span><br><span class="line">        scheduler.start();</span><br><span class="line"></span><br><span class="line">        <span class="comment">//睡眠</span></span><br><span class="line">        TimeUnit.MINUTES.sleep(<span class="number">1</span>);</span><br><span class="line">        scheduler.shutdown();</span><br><span class="line">        System.out.println(<span class="string">&quot;--------scheduler shutdown ! ------------&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+
+<h1 id><a href="#" class="headerlink" title></a></h1>
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="http://wajj.xin/2021/04/19/java/Quartz/Quartz/" title="Quartz" target="_blank" rel="external">http://wajj.xin/2021/04/19/java/Quartz/Quartz/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/feenammm" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/logo.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/feenammm" target="_blank"><span class="text-dark"></span><small class="ml-1x"></small></a></h3>
+        <div></div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    
+    <li class="next">
+      <a href="/2021/04/16/Linux/nginx/nginx/" title="nginx"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+    <li class="toggle-toc">
+      <a class="toggle-btn collapsed" data-toggle="collapse" href="#collapseToc" aria-expanded="false" title="文章目录" role="button">
+        <span>[&nbsp;</span><span>文章目录</span>
+        <i class="text-collapsed icon icon-anchor"></i>
+        <i class="text-in icon icon-close"></i>
+        <span>]</span>
+      </a>
+    </li>
+    
+  </ul>
+  
+  
+  
+  <div class="bar-right">
+    
+  </div>
+  </div>
+</nav>
+  
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/feenammm" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+<script src="/js/plugin.min.js"></script>
+
+
+<script src="/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+
+
+
+
+   
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+   
+
+
+
+
+
+
+</body>
+</html>
