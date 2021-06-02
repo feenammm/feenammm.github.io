@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <title>DateTimeFormatter | Hexo</title>
+  <meta name="description" content="时间类JDK8新特性里提供了3个时间类：LocalDate、LocalTime、LocalDateTime  Instant：瞬时实例。 LocalDate：本地日期，不包含具体时间。 LocalTime：本地时间，不包含日期。 LocalDateTime：组合了日期和时间，但不包含时差和时区信息。 ZonedDateTime：最完整的日期时间，包含时区和相对UTC或格林威治的时差。  如果需要对">
+<meta property="og:type" content="article">
+<meta property="og:title" content="DateTimeFormatter">
+<meta property="og:url" content="http://wajj.xin/2021/05/08/java/java8%E6%96%B0%E7%89%B9%E6%80%A7/%E6%97%B6%E9%97%B4/index.html">
+<meta property="og:site_name" content="阿巴巴巴">
+<meta property="og:description" content="时间类JDK8新特性里提供了3个时间类：LocalDate、LocalTime、LocalDateTime  Instant：瞬时实例。 LocalDate：本地日期，不包含具体时间。 LocalTime：本地时间，不包含日期。 LocalDateTime：组合了日期和时间，但不包含时差和时区信息。 ZonedDateTime：最完整的日期时间，包含时区和相对UTC或格林威治的时差。  如果需要对">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-05-08T06:56:36.000Z">
+<meta property="article:modified_time" content="2021-06-02T09:04:52.168Z">
+<meta property="article:author" content="wxy">
+<meta property="article:tag" content="Java8">
+<meta property="article:tag" content="DateTimeFormatter">
+<meta name="twitter:card" content="summary">
+  <!-- Canonical links -->
+  <link rel="canonical" href="http://wajj.xin/2021/05/08/java/java8%E6%96%B0%E7%89%B9%E6%80%A7/%E6%97%B6%E9%97%B4/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="阿巴巴巴" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+  
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body class="main-center no-sidebar" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/feenammm" target="_blank">
+          <img class="img-circle img-rotate" src="/images/logo.jpg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm"></h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md"></h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">归档</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">分类</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">标签</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-repository">
+          <a href="/repository">
+            
+            <i class="icon icon-project"></i>
+            
+            <span class="menu-title">项目</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links">
+            
+            <i class="icon icon-friendship"></i>
+            
+            <span class="menu-title">友链</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/feenammm" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>欢迎交流与分享经验!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/DOM/">DOM</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Gradle/">Gradle</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java8/">Java8</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaScript/">JavaScript</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/nginx/">nginx</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a><span class="category-list-count">3</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/java/Quartz/">Quartz</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/Spring-Security/">Spring Security</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/java/Spring-Security/SpringBoot/">SpringBoot</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/mybatis/">mybatis</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/mysql/">mysql</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8A%80%E5%B7%A7/">技巧</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a><span class="category-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget-body">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/DOM/" rel="tag">DOM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DateTimeFormatter/" rel="tag">DateTimeFormatter</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Gradle/" rel="tag">Gradle</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JRebel/" rel="tag">JRebel</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java8/" rel="tag">Java8</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Lambda/" rel="tag">Lambda</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Quartz/" rel="tag">Quartz</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring-Security/" rel="tag">Spring Security</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringBoot/" rel="tag">SpringBoot</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/abbb/" rel="tag">abbb</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/do/" rel="tag">do</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/" rel="tag">java</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mybatis/" rel="tag">mybatis</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/" rel="tag">mysql</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/" rel="tag">nginx</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/stream/" rel="tag">stream</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vo/" rel="tag">vo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8A%80%E5%B7%A7/" rel="tag">技巧</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1/" rel="tag">数据库设计</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/DOM/" style="font-size: 13px;">DOM</a> <a href="/tags/DateTimeFormatter/" style="font-size: 13px;">DateTimeFormatter</a> <a href="/tags/Gradle/" style="font-size: 13.5px;">Gradle</a> <a href="/tags/JRebel/" style="font-size: 13px;">JRebel</a> <a href="/tags/Java8/" style="font-size: 13.5px;">Java8</a> <a href="/tags/JavaScript/" style="font-size: 13px;">JavaScript</a> <a href="/tags/Lambda/" style="font-size: 13px;">Lambda</a> <a href="/tags/Linux/" style="font-size: 13px;">Linux</a> <a href="/tags/Quartz/" style="font-size: 13px;">Quartz</a> <a href="/tags/Spring-Security/" style="font-size: 13px;">Spring Security</a> <a href="/tags/SpringBoot/" style="font-size: 13px;">SpringBoot</a> <a href="/tags/abbb/" style="font-size: 13px;">abbb</a> <a href="/tags/do/" style="font-size: 13px;">do</a> <a href="/tags/java/" style="font-size: 14px;">java</a> <a href="/tags/mybatis/" style="font-size: 13px;">mybatis</a> <a href="/tags/mysql/" style="font-size: 13px;">mysql</a> <a href="/tags/nginx/" style="font-size: 13px;">nginx</a> <a href="/tags/stream/" style="font-size: 13px;">stream</a> <a href="/tags/vo/" style="font-size: 13px;">vo</a> <a href="/tags/%E6%8A%80%E5%B7%A7/" style="font-size: 13.5px;">技巧</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1/" style="font-size: 13px;">数据库设计</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/06/">六月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">五月 2021</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">四月 2021</a><span class="archive-list-count">6</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/DOM/">DOM</a>
+              </p>
+              <p class="item-title">
+                <a href="/2021/06/02/%E5%89%8D%E7%AB%AF/JavaScript/DOM/" class="title">DOM</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-06-02T13:55:58.000Z" itemprop="datePublished">2021-06-02</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Gradle/">Gradle</a>
+              </p>
+              <p class="item-title">
+                <a href="/2021/05/21/java/Groovy/Groovy/" class="title">Groovy</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-05-21T15:35:34.000Z" itemprop="datePublished">2021-05-21</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/JavaScript/">JavaScript</a>
+              </p>
+              <p class="item-title">
+                <a href="/2021/05/19/%E5%89%8D%E7%AB%AF/JavaScript/JavaScript/" class="title">JavaScript</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-05-19T01:21:19.000Z" itemprop="datePublished">2021-05-19</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Java8/">Java8</a>
+              </p>
+              <p class="item-title">
+                <a href="/2021/05/09/java/java8%E6%96%B0%E7%89%B9%E6%80%A7/Lambda/" class="title">Lambda</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-05-09T01:03:03.000Z" itemprop="datePublished">2021-05-09</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Java/">Java</a>
+              </p>
+              <p class="item-title">
+                <a href="/2021/05/08/java/abbb/" class="title">abbb</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-05-08T06:56:36.000Z" itemprop="datePublished">2021-05-08</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<aside class="sidebar sidebar-toc collapse" id="collapseToc" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    <nav id="toc" class="article-toc">
+      <h3 class="toc-title">文章目录</h3>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%97%B6%E9%97%B4%E7%B1%BB"><span class="toc-number">1.</span> <span class="toc-text">时间类</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#LocalDate"><span class="toc-number">1.1.</span> <span class="toc-text">LocalDate</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LocalTime"><span class="toc-number">1.2.</span> <span class="toc-text">LocalTime</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LocalDateTime"><span class="toc-number">1.3.</span> <span class="toc-text">LocalDateTime</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Instant"><span class="toc-number">1.4.</span> <span class="toc-text">Instant</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Zoned"><span class="toc-number">1.5.</span> <span class="toc-text">Zoned</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#DateTimeFormatter"><span class="toc-number">2.</span> <span class="toc-text">DateTimeFormatter</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E8%BD%AC%E6%8D%A2%E4%B8%BA%E6%97%A5%E6%9C%9F"><span class="toc-number">2.1.</span> <span class="toc-text">字符串转换为日期</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%97%A5%E6%9C%9F%E8%BD%AC%E6%8D%A2%E4%B8%BA%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="toc-number">2.2.</span> <span class="toc-text">日期转换为字符串</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%97%A5%E6%9C%9F%E8%BD%ACLocalDateTime"><span class="toc-number">2.3.</span> <span class="toc-text">日期转LocalDateTime</span></a></li></ol></li></ol>
+    </nav>
+  </div>
+</aside>
+
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-java/java8新特性/时间" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      DateTimeFormatter
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2021/05/08/java/java8%E6%96%B0%E7%89%B9%E6%80%A7/%E6%97%B6%E9%97%B4/" class="article-date">
+	  <time datetime="2021-05-08T06:56:36.000Z" itemprop="datePublished">2021-05-08</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/Java8/">Java8</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/DateTimeFormatter/" rel="tag">DateTimeFormatter</a>, <a class="article-tag-link-link" href="/tags/Java8/" rel="tag">Java8</a>
+  </span>
+
+
+        
+	<span class="article-read hidden-xs">
+	    <i class="icon icon-eye-fill" aria-hidden="true"></i>
+	    <span id="busuanzi_container_page_pv">
+			<span id="busuanzi_value_page_pv">0</span>
+		</span>
+	</span>
+
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/05/08/java/java8%E6%96%B0%E7%89%B9%E6%80%A7/%E6%97%B6%E9%97%B4/#comments" class="article-comment-link">评论</a></span>
+        
+	
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 921(字)</span>
+	
+	
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 4(分)</span>
+	
+
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <h2 id="时间类"><a href="#时间类" class="headerlink" title="时间类"></a>时间类</h2><p>JDK8新特性里提供了3个时间类：LocalDate、LocalTime、LocalDateTime</p>
+<ol>
+<li>Instant：瞬时实例。</li>
+<li>LocalDate：本地日期，不包含具体时间。</li>
+<li>LocalTime：本地时间，不包含日期。</li>
+<li>LocalDateTime：组合了日期和时间，但不包含时差和时区信息。</li>
+<li>ZonedDateTime：最完整的日期时间，包含时区和相对UTC或格林威治的时差。</li>
+</ol>
+<p>如果需要对Date类型进行格式，否则可读性很差，格式化Date类型要使用SimpleDateFormat，但SimpleDateFormat是现成不安全的</p>
+<h3 id="LocalDate"><a href="#LocalDate" class="headerlink" title="LocalDate"></a>LocalDate</h3><p>LocalDate是日期处理类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 获取当前日期</span></span><br><span class="line">LocalDate now = LocalDate.now();</span><br><span class="line"><span class="comment">// 设置日期</span></span><br><span class="line">LocalDate localDate = LocalDate.of(<span class="number">2019</span>, <span class="number">9</span>, <span class="number">10</span>);</span><br><span class="line"><span class="comment">// 获取年</span></span><br><span class="line"><span class="keyword">int</span> year = localDate.getYear();     <span class="comment">//结果：2019</span></span><br><span class="line"><span class="keyword">int</span> year1 = localDate.get(ChronoField.YEAR); <span class="comment">//结果：2019</span></span><br><span class="line"><span class="comment">// 获取月</span></span><br><span class="line">Month month = localDate.getMonth();   <span class="comment">// 结果：SEPTEMBER</span></span><br><span class="line"><span class="keyword">int</span> month1 = localDate.get(ChronoField.MONTH_OF_YEAR); <span class="comment">//结果：9</span></span><br><span class="line"><span class="comment">// 获取日</span></span><br><span class="line"><span class="keyword">int</span> day = localDate.getDayOfMonth();   <span class="comment">//结果：10</span></span><br><span class="line"><span class="keyword">int</span> day1 = localDate.get(ChronoField.DAY_OF_MONTH); <span class="comment">// 结果：10</span></span><br><span class="line"><span class="comment">// 获取星期</span></span><br><span class="line">DayOfWeek dayOfWeek = localDate.getDayOfWeek();   <span class="comment">//结果：TUESDAY</span></span><br><span class="line"><span class="keyword">int</span> dayOfWeek1 = localDate.get(ChronoField.DAY_OF_WEEK); <span class="comment">//结果：2</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="LocalTime"><a href="#LocalTime" class="headerlink" title="LocalTime"></a>LocalTime</h3><p>LocalTime是时间处理类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 获取当前时间</span></span><br><span class="line">LocalTime now = LocalTime.now();</span><br><span class="line"><span class="comment">// 设置时间</span></span><br><span class="line">LocalTime localTime = LocalTime.of(<span class="number">13</span>, <span class="number">51</span>, <span class="number">10</span>);</span><br><span class="line"><span class="comment">//获取小时</span></span><br><span class="line"><span class="keyword">int</span> hour = localTime.getHour();    <span class="comment">// 结果：13</span></span><br><span class="line"><span class="keyword">int</span> hour1 = localTime.get(ChronoField.HOUR_OF_DAY); <span class="comment">// 结果：13</span></span><br><span class="line"><span class="comment">//获取分</span></span><br><span class="line"><span class="keyword">int</span> minute = localTime.getMinute();  <span class="comment">// 结果：51</span></span><br><span class="line"><span class="keyword">int</span> minute1 = localTime.get(ChronoField.MINUTE_OF_HOUR); <span class="comment">// 结果：51</span></span><br><span class="line"><span class="comment">//获取秒</span></span><br><span class="line"><span class="keyword">int</span> second = localTime.getSecond();   <span class="comment">// 结果：10</span></span><br><span class="line"><span class="keyword">int</span> second1 = localTime.get(ChronoField.SECOND_OF_MINUTE); <span class="comment">// 结果：10</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="LocalDateTime"><a href="#LocalDateTime" class="headerlink" title="LocalDateTime"></a>LocalDateTime</h3><p>LocalDateTime可以设置年月日时分秒，相当于LocalDate + LocalTime</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 获取当前日期时间</span></span><br><span class="line">LocalDateTime localDateTime = LocalDateTime.now();</span><br><span class="line"><span class="comment">// 设置日期</span></span><br><span class="line">LocalDateTime localDateTime1 = LocalDateTime.of(<span class="number">2019</span>, Month.SEPTEMBER, <span class="number">10</span>, <span class="number">14</span>, <span class="number">46</span>, <span class="number">56</span>);</span><br><span class="line">LocalDateTime localDateTime2 = LocalDateTime.of(localDate, localTime);</span><br><span class="line">LocalDateTime localDateTime3 = localDate.atTime(localTime);</span><br><span class="line">LocalDateTime localDateTime4 = localTime.atDate(localDate);</span><br><span class="line"><span class="comment">// 获取LocalDate</span></span><br><span class="line">LocalDate localDate2 = localDateTime.toLocalDate();</span><br><span class="line"><span class="comment">// 获取LocalTime</span></span><br><span class="line">LocalTime localTime2 = localDateTime.toLocalTime();</span><br></pre></td></tr></table></figure>
+
+<h3 id="Instant"><a href="#Instant" class="headerlink" title="Instant"></a>Instant</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 创建Instant对象</span><br><span class="line">Instant instant &#x3D; Instant.now();</span><br><span class="line">&#x2F;&#x2F; 获取秒</span><br><span class="line">long currentSecond &#x3D; instant.getEpochSecond();</span><br><span class="line">&#x2F;&#x2F; 获取毫秒</span><br><span class="line">long currentMilli &#x3D; instant.toEpochMilli();</span><br></pre></td></tr></table></figure>
+
+<p>　　如果只是为了获取秒数或者毫秒数，使用System.currentTimeMillis()来得更为方便</p>
+<p><strong>修改LocalDate、LocalTime、LocalDateTime、Instant</strong></p>
+<p>　　LocalDate、LocalTime、LocalDateTime、Instant为不可变对象，修改这些对象对象会返回一个副本</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//创建日期：2019-09-10 14:46:56</span></span><br><span class="line">LocalDateTime localDateTime = LocalDateTime.of(<span class="number">2019</span>, Month.SEPTEMBER, <span class="number">10</span>, <span class="number">14</span>, <span class="number">46</span>, <span class="number">56</span>);</span><br><span class="line"><span class="comment">//增加一年</span></span><br><span class="line">localDateTime = localDateTime.plusYears(<span class="number">1</span>);  <span class="comment">//结果： 2020-09-10 14:46:56</span></span><br><span class="line">localDateTime = localDateTime.plus(<span class="number">1</span>, ChronoUnit.YEARS); <span class="comment">//结果： 2021-09-10 14:46:56</span></span><br><span class="line"><span class="comment">//减少一个月</span></span><br><span class="line">localDateTime = localDateTime.minusMonths(<span class="number">1</span>);  <span class="comment">//结果： 2021-08-10 14:46:56</span></span><br><span class="line">localDateTime = localDateTime.minus(<span class="number">1</span>, ChronoUnit.MONTHS); <span class="comment">//结果： 2021-07-10 14:46:56</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//通过with修改某些值，年月日时分秒都可以通过with方法设置。</span></span><br><span class="line"><span class="comment">//修改年为2019</span></span><br><span class="line">localDateTime = localDateTime.withYear(<span class="number">2020</span>);</span><br><span class="line"><span class="comment">//修改为2022</span></span><br><span class="line">localDateTime = localDateTime.with(ChronoField.YEAR, <span class="number">2022</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//日期计算。比如有些时候想知道这个月的最后一天是几号、下个周末是几号，通过提供的时间和日期API可以很快得到答案 。TemporalAdjusters提供的各种日期时间格式化的静态类，比如firstDayOfYear是当前日期所属年的第一天</span></span><br><span class="line">LocalDate localDate = LocalDate.now();</span><br><span class="line">LocalDate localDate1 = localDate.with(TemporalAdjusters.firstDayOfYear());</span><br></pre></td></tr></table></figure>
+
+<h3 id="Zoned"><a href="#Zoned" class="headerlink" title="Zoned"></a>Zoned</h3><p>通过指定的时区处理日期时间</p>
+<h2 id="DateTimeFormatter"><a href="#DateTimeFormatter" class="headerlink" title="DateTimeFormatter"></a>DateTimeFormatter</h2><p>在java8之前使用SimpleDateFormat类来进行时间格式化，但这种存在一些缺点：</p>
+<ol>
+<li>每处理一次时间都new一个SimpleDateFormat实例对象会占用大量的内存和jvm空间</li>
+<li>为了减少内存开销，我们可以使用static将其设置为共享变量，但SimpleDateFormat是线程不安全的，需要通过加锁的方式来解决</li>
+</ol>
+<p>java8之后为我们提供了DateTimeFormatter类代替SimpleDateFormat，这是一个线程安全的格式化工具类。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DateTimeFormatter formatter = DateTimeFormatter.ofPattern(<span class="string">&quot;yyyy-MM-dd HH:mm&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<h3 id="字符串转换为日期"><a href="#字符串转换为日期" class="headerlink" title="字符串转换为日期"></a>字符串转换为日期</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">String dateStr= <span class="string">&quot;2018年12月18日&quot;</span>;</span><br><span class="line">DateTimeFormatter formatter = DateTimeFormatter.ofPattern(<span class="string">&quot;yyyy年MM月dd日&quot;</span>);</span><br><span class="line">LocalDate date= LocalDate.parse(dateStr, formatter); </span><br></pre></td></tr></table></figure>
+
+<h3 id="日期转换为字符串"><a href="#日期转换为字符串" class="headerlink" title="日期转换为字符串"></a>日期转换为字符串</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">LocalDateTime now = LocalDateTime.now();</span><br><span class="line">DateTimeFormatter format = DateTimeFormatter.ofPattern(<span class="string">&quot;yyyy年MM月dd日 HH:mm:ss&quot;</span>);</span><br><span class="line">String nowStr = now.format(format);</span><br></pre></td></tr></table></figure>
+
+<h3 id="日期转LocalDateTime"><a href="#日期转LocalDateTime" class="headerlink" title="日期转LocalDateTime"></a>日期转LocalDateTime</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">DateTimeFormatter formatter = DateTimeFormatter.ofPattern(<span class="string">&quot;yyyy-MM-dd HH:mm:ss&quot;</span>);</span><br><span class="line">LocalDateTime.parse(<span class="string">&quot;2017-08-11 01:00:00&quot;</span>, formatter);</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="http://wajj.xin/2021/05/08/java/java8%E6%96%B0%E7%89%B9%E6%80%A7/%E6%97%B6%E9%97%B4/" title="DateTimeFormatter" target="_blank" rel="external">http://wajj.xin/2021/05/08/java/java8%E6%96%B0%E7%89%B9%E6%80%A7/%E6%97%B6%E9%97%B4/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/feenammm" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/logo.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/feenammm" target="_blank"><span class="text-dark"></span><small class="ml-1x"></small></a></h3>
+        <div></div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/2021/05/08/java/abbb/" title="abbb"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/2021/05/08/java/java8%E6%96%B0%E7%89%B9%E6%80%A7/stream/" title="stream"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+    <li class="toggle-toc">
+      <a class="toggle-btn collapsed" data-toggle="collapse" href="#collapseToc" aria-expanded="false" title="文章目录" role="button">
+        <span>[&nbsp;</span><span>文章目录</span>
+        <i class="text-collapsed icon icon-anchor"></i>
+        <i class="text-in icon icon-close"></i>
+        <span>]</span>
+      </a>
+    </li>
+    
+  </ul>
+  
+  
+  
+  <div class="bar-right">
+    
+  </div>
+  </div>
+</nav>
+  
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/feenammm" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+<script src="/js/plugin.min.js"></script>
+
+
+<script src="/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+
+
+
+
+   
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+   
+
+
+
+
+
+
+</body>
+</html>

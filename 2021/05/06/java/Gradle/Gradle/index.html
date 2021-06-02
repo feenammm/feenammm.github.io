@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <title>Gradle | Hexo</title>
+  <meta name="description" content="Gradle下载 Gralde 官方网站下载 Gradle 的最新发行包 解压 设置环境变量 新建 GRADLE_HOME  值为 解压路径 path 中添加 %GRADLE_HOME%\bin   gradle -version 验证  构建基础Projects 和 tasks 任何一个 Gradle 构建都是由一个或多个 projects 组成 每个 project 包括许多可构建组成部分,每">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Gradle">
+<meta property="og:url" content="http://wajj.xin/2021/05/06/java/Gradle/Gradle/index.html">
+<meta property="og:site_name" content="阿巴巴巴">
+<meta property="og:description" content="Gradle下载 Gralde 官方网站下载 Gradle 的最新发行包 解压 设置环境变量 新建 GRADLE_HOME  值为 解压路径 path 中添加 %GRADLE_HOME%\bin   gradle -version 验证  构建基础Projects 和 tasks 任何一个 Gradle 构建都是由一个或多个 projects 组成 每个 project 包括许多可构建组成部分,每">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://wajj.xin/2021/05/06/java/Gradle/Gradle/image-20210510111837980.png">
+<meta property="article:published_time" content="2021-05-06T07:21:36.000Z">
+<meta property="article:modified_time" content="2021-05-12T03:18:06.415Z">
+<meta property="article:author" content="wxy">
+<meta property="article:tag" content="Gradle">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://wajj.xin/2021/05/06/java/Gradle/Gradle/image-20210510111837980.png">
+  <!-- Canonical links -->
+  <link rel="canonical" href="http://wajj.xin/2021/05/06/java/Gradle/Gradle/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="阿巴巴巴" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+  
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body class="main-center no-sidebar" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/feenammm" target="_blank">
+          <img class="img-circle img-rotate" src="/images/logo.jpg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm"></h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md"></h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">归档</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">分类</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">标签</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-repository">
+          <a href="/repository">
+            
+            <i class="icon icon-project"></i>
+            
+            <span class="menu-title">项目</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links">
+            
+            <i class="icon icon-friendship"></i>
+            
+            <span class="menu-title">友链</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/feenammm" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>欢迎交流与分享经验!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/DOM/">DOM</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Gradle/">Gradle</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java8/">Java8</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaScript/">JavaScript</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/nginx/">nginx</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a><span class="category-list-count">3</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/java/Quartz/">Quartz</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/Spring-Security/">Spring Security</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/java/Spring-Security/SpringBoot/">SpringBoot</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/mybatis/">mybatis</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/mysql/">mysql</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8A%80%E5%B7%A7/">技巧</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a><span class="category-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget-body">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/DOM/" rel="tag">DOM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DateTimeFormatter/" rel="tag">DateTimeFormatter</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Gradle/" rel="tag">Gradle</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JRebel/" rel="tag">JRebel</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java8/" rel="tag">Java8</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Lambda/" rel="tag">Lambda</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Quartz/" rel="tag">Quartz</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring-Security/" rel="tag">Spring Security</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringBoot/" rel="tag">SpringBoot</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/abbb/" rel="tag">abbb</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/do/" rel="tag">do</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/" rel="tag">java</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mybatis/" rel="tag">mybatis</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/" rel="tag">mysql</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/" rel="tag">nginx</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/stream/" rel="tag">stream</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vo/" rel="tag">vo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8A%80%E5%B7%A7/" rel="tag">技巧</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1/" rel="tag">数据库设计</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/DOM/" style="font-size: 13px;">DOM</a> <a href="/tags/DateTimeFormatter/" style="font-size: 13px;">DateTimeFormatter</a> <a href="/tags/Gradle/" style="font-size: 13.5px;">Gradle</a> <a href="/tags/JRebel/" style="font-size: 13px;">JRebel</a> <a href="/tags/Java8/" style="font-size: 13.5px;">Java8</a> <a href="/tags/JavaScript/" style="font-size: 13px;">JavaScript</a> <a href="/tags/Lambda/" style="font-size: 13px;">Lambda</a> <a href="/tags/Linux/" style="font-size: 13px;">Linux</a> <a href="/tags/Quartz/" style="font-size: 13px;">Quartz</a> <a href="/tags/Spring-Security/" style="font-size: 13px;">Spring Security</a> <a href="/tags/SpringBoot/" style="font-size: 13px;">SpringBoot</a> <a href="/tags/abbb/" style="font-size: 13px;">abbb</a> <a href="/tags/do/" style="font-size: 13px;">do</a> <a href="/tags/java/" style="font-size: 14px;">java</a> <a href="/tags/mybatis/" style="font-size: 13px;">mybatis</a> <a href="/tags/mysql/" style="font-size: 13px;">mysql</a> <a href="/tags/nginx/" style="font-size: 13px;">nginx</a> <a href="/tags/stream/" style="font-size: 13px;">stream</a> <a href="/tags/vo/" style="font-size: 13px;">vo</a> <a href="/tags/%E6%8A%80%E5%B7%A7/" style="font-size: 13.5px;">技巧</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1/" style="font-size: 13px;">数据库设计</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/06/">六月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">五月 2021</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">四月 2021</a><span class="archive-list-count">6</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/DOM/">DOM</a>
+              </p>
+              <p class="item-title">
+                <a href="/2021/06/02/%E5%89%8D%E7%AB%AF/JavaScript/DOM/" class="title">DOM</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-06-02T13:55:58.000Z" itemprop="datePublished">2021-06-02</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Gradle/">Gradle</a>
+              </p>
+              <p class="item-title">
+                <a href="/2021/05/21/java/Groovy/Groovy/" class="title">Groovy</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-05-21T15:35:34.000Z" itemprop="datePublished">2021-05-21</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/JavaScript/">JavaScript</a>
+              </p>
+              <p class="item-title">
+                <a href="/2021/05/19/%E5%89%8D%E7%AB%AF/JavaScript/JavaScript/" class="title">JavaScript</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-05-19T01:21:19.000Z" itemprop="datePublished">2021-05-19</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Java8/">Java8</a>
+              </p>
+              <p class="item-title">
+                <a href="/2021/05/09/java/java8%E6%96%B0%E7%89%B9%E6%80%A7/Lambda/" class="title">Lambda</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-05-09T01:03:03.000Z" itemprop="datePublished">2021-05-09</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Java/">Java</a>
+              </p>
+              <p class="item-title">
+                <a href="/2021/05/08/java/abbb/" class="title">abbb</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-05-08T06:56:36.000Z" itemprop="datePublished">2021-05-08</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<aside class="sidebar sidebar-toc collapse" id="collapseToc" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    <nav id="toc" class="article-toc">
+      <h3 class="toc-title">文章目录</h3>
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Gradle"><span class="toc-number">1.</span> <span class="toc-text">Gradle</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%8B%E8%BD%BD"><span class="toc-number">2.</span> <span class="toc-text">下载</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%9E%84%E5%BB%BA%E5%9F%BA%E7%A1%80"><span class="toc-number">3.</span> <span class="toc-text">构建基础</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Hello-world"><span class="toc-number">3.1.</span> <span class="toc-text">Hello world</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%89%A7%E8%A1%8C%E8%84%9A%E6%9C%AC"><span class="toc-number">3.1.1.</span> <span class="toc-text">执行脚本</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E9%A1%B9%E7%9B%AE"><span class="toc-number">4.</span> <span class="toc-text">创建项目</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#build-gradle"><span class="toc-number">4.1.</span> <span class="toc-text">build.gradle</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#settings-gradle"><span class="toc-number">4.2.</span> <span class="toc-text">settings.gradle</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BE%9D%E8%B5%96%E9%85%8D%E7%BD%AE"><span class="toc-number">5.</span> <span class="toc-text">依赖配置</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#compile%EF%BC%88implementation%EF%BC%8Capi%EF%BC%89"><span class="toc-number">5.1.</span> <span class="toc-text">compile（implementation，api）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#provided%EF%BC%88compileOnly%EF%BC%89"><span class="toc-number">5.2.</span> <span class="toc-text">provided（compileOnly）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#apk%EF%BC%88runtimeOnly%EF%BC%89"><span class="toc-number">5.3.</span> <span class="toc-text">apk（runtimeOnly）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#testCompile%EF%BC%88testImplementation%EF%BC%89"><span class="toc-number">5.4.</span> <span class="toc-text">testCompile（testImplementation）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#debugCompile%EF%BC%88debugImplementation%EF%BC%89"><span class="toc-number">5.5.</span> <span class="toc-text">debugCompile（debugImplementation）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#releaseCompile%EF%BC%88releaseImplementation%EF%BC%89"><span class="toc-number">5.6.</span> <span class="toc-text">releaseCompile（releaseImplementation）</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">6.</span> <span class="toc-text"></span></a></li></ol>
+    </nav>
+  </div>
+</aside>
+
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-java/Gradle/Gradle" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Gradle
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2021/05/06/java/Gradle/Gradle/" class="article-date">
+	  <time datetime="2021-05-06T07:21:36.000Z" itemprop="datePublished">2021-05-06</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/Gradle/">Gradle</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/Gradle/" rel="tag">Gradle</a>
+  </span>
+
+
+        
+	<span class="article-read hidden-xs">
+	    <i class="icon icon-eye-fill" aria-hidden="true"></i>
+	    <span id="busuanzi_container_page_pv">
+			<span id="busuanzi_value_page_pv">0</span>
+		</span>
+	</span>
+
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/05/06/java/Gradle/Gradle/#comments" class="article-comment-link">评论</a></span>
+        
+	
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 1.4k(字)</span>
+	
+	
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 5(分)</span>
+	
+
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <h1 id="Gradle"><a href="#Gradle" class="headerlink" title="Gradle"></a>Gradle</h1><h1 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h1><ol>
+<li><a target="_blank" rel="noopener" href="https://gradle.org/releases/">Gralde 官方网站</a>下载 Gradle 的最新发行包</li>
+<li>解压</li>
+<li>设置环境变量<ol>
+<li>新建 <code>GRADLE_HOME</code>  值为 解压路径</li>
+<li><code>path</code> 中添加 <code>%GRADLE_HOME%\bin</code></li>
+</ol>
+</li>
+<li><code>gradle -version</code> 验证</li>
+</ol>
+<h1 id="构建基础"><a href="#构建基础" class="headerlink" title="构建基础"></a>构建基础</h1><p><strong>Projects 和 tasks</strong></p>
+<p>任何一个 Gradle 构建都是由一个或多个 projects 组成</p>
+<p>每个 project 包括许多可构建组成部分,每个 project 或许是一个 jar 包或者一个 web 应用，它也可以是一个由许多其他项目中产生的 jar 构成的 zip 压缩包。</p>
+<p>每个 project 都由多个 tasks 组成。每个 task 都代表了构建执行过程中的一个原子性操作。如编译，打包，生成 javadoc，发布到某个仓库等操作。</p>
+<h2 id="Hello-world"><a href="#Hello-world" class="headerlink" title="Hello world"></a>Hello world</h2><p>你可以通过在命令行运行 gradle 命令来执行构建，gradle 命令会从当前目录下寻找 build.gradle 文件来执行构建。我们称 build.gradle 文件为构建脚本。严格来说这其实是一个构建配置脚本，后面你会了解到这个构建脚本定义了一个 project 和一些默认的 task。</p>
+<p>build.gradle</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">task hello &#123;</span><br><span class="line">    doLast &#123;</span><br><span class="line">        println &#39;Hello world!&#39;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后在该文件所在目录执行 gradle -q hello</p>
+<blockquote>
+<p>-q 参数的作用是什么?</p>
+<p>该文档的示例中很多地方在调用 gradle 命令时都加了 -q 参数。该参数用来控制 gradle 的日志级别，可以保证只输出我们需要的内容。具体可参阅本文档第十八章日志来了解更多参数和信息。</p>
+</blockquote>
+<h3 id="执行脚本"><a href="#执行脚本" class="headerlink" title="执行脚本"></a>执行脚本</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Output of gradle -q hello</span><br><span class="line">&gt; gradle -q hello</span><br><span class="line">Hello world!</span><br></pre></td></tr></table></figure>
+
+<p>上面的脚本定义了一个叫做 hello 的 task，并且给它添加了一个动作。当执行 gradle hello 的时候, Gralde 便会去调用 hello 这个任务来执行给定操作。这些操作其实就是一个用 groovy 书写的闭包。</p>
+<p>如果你觉得它看上去跟 Ant 中的 targets 很像，那么是对的。Gradle 的 tasks 就相当于 Ant 中的 targets。不过你会发现他功能更加强大。我们只是换了一个比 target 更形象的另外一个术语。不幸的是这恰巧与 Ant 中的术语有些冲突。ant 命令中有诸如 javac、copy、tasks。所以当该文档中提及 tasks 时，除非特别指明 ant task。否则指的均是指 Gradle 中的 tasks。</p>
+<h1 id="创建项目"><a href="#创建项目" class="headerlink" title="创建项目"></a>创建项目</h1><p>idea创建项目后会生成build.gradle和settings.gradle两个文件</p>
+<h2 id="build-gradle"><a href="#build-gradle" class="headerlink" title="build.gradle"></a>build.gradle</h2><h2 id="settings-gradle"><a href="#settings-gradle" class="headerlink" title="settings.gradle"></a>settings.gradle</h2><p>settings.gradle是用来管理多项目的，里面包含了项目的name</p>
+<p><img src="/2021/05/06/java/Gradle/Gradle/image-20210510111837980.png" alt="image-20210510111837980"></p>
+<h1 id="依赖配置"><a href="#依赖配置" class="headerlink" title="依赖配置"></a>依赖配置</h1><h2 id="compile（implementation，api）"><a href="#compile（implementation，api）" class="headerlink" title="compile（implementation，api）"></a>compile（implementation，api）</h2><p>这种是我们最常用的方式，使用该方式依赖的库将会参与编译和打包。</p>
+<p>implementation：该依赖方式所依赖的库不会传递，只会在当前module中生效。A-&gt;B B-&gt;C A -x- C<br>api：该依赖方式会传递所依赖的库，当其他module依赖了该module时，可以使用该module下使用api依赖的库。 A-&gt;B B-&gt;C A -&gt; C</p>
+<h2 id="provided（compileOnly）"><a href="#provided（compileOnly）" class="headerlink" title="provided（compileOnly）"></a>provided（compileOnly）</h2><p><strong>只在编译时有效，不会参与打包</strong><br>可以在自己的moudle中使用该方式依赖一些比如com.android.support，gson这些使用者常用的库，避免冲突。</p>
+<h2 id="apk（runtimeOnly）"><a href="#apk（runtimeOnly）" class="headerlink" title="apk（runtimeOnly）"></a>apk（runtimeOnly）</h2><p>只在生成apk的时候参与打包，编译时不会参与，很少用。</p>
+<h2 id="testCompile（testImplementation）"><a href="#testCompile（testImplementation）" class="headerlink" title="testCompile（testImplementation）"></a>testCompile（testImplementation）</h2><p>testCompile 只在单元测试代码的编译以及最终打包测试apk时有效。</p>
+<h2 id="debugCompile（debugImplementation）"><a href="#debugCompile（debugImplementation）" class="headerlink" title="debugCompile（debugImplementation）"></a>debugCompile（debugImplementation）</h2><p>debugCompile 只在debug模式的编译和最终的debug apk打包时有效</p>
+<h2 id="releaseCompile（releaseImplementation）"><a href="#releaseCompile（releaseImplementation）" class="headerlink" title="releaseCompile（releaseImplementation）"></a>releaseCompile（releaseImplementation）</h2><p>Release compile 仅仅针对Release 模式的编译和最终的Release apk打包。</p>
+<h1 id><a href="#" class="headerlink" title></a></h1><p>spring boot的gradle配置文件</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// buildscript 代码块中脚本优先执行</span></span><br><span class="line">buildscript &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// ext 用于定义动态属性</span></span><br><span class="line">    ext &#123;</span><br><span class="line">        springBootVersion = <span class="string">&#x27;1.5.2.RELEASE&#x27;</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 自定义  Thymeleaf 和 Thymeleaf Layout Dialect 的版本</span></span><br><span class="line">    ext[<span class="string">&#x27;thymeleaf.version&#x27;</span>] = <span class="string">&#x27;3.0.3.RELEASE&#x27;</span></span><br><span class="line">    ext[<span class="string">&#x27;thymeleaf-layout-dialect.version&#x27;</span>] = <span class="string">&#x27;2.2.0&#x27;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 自定义  Hibernate 的版本</span></span><br><span class="line">    ext[<span class="string">&#x27;hibernate.version&#x27;</span>] = <span class="string">&#x27;5.2.8.Final&#x27;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 使用了 Maven 的中央仓库（你也可以指定其他仓库）</span></span><br><span class="line">    repositories &#123;</span><br><span class="line">        <span class="comment">//mavenCentral()</span></span><br><span class="line">        maven &#123;</span><br><span class="line">            url <span class="string">&#x27;http://maven.aliyun.com/nexus/content/groups/public/&#x27;</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 依赖关系</span></span><br><span class="line">    dependencies &#123;</span><br><span class="line">        <span class="comment">// classpath 声明说明了在执行其余的脚本时，ClassLoader 可以使用这些依赖项</span></span><br><span class="line">        classpath(<span class="string">&quot;org.springframework.boot:spring-boot-gradle-plugin:$&#123;springBootVersion&#125;&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用插件</span></span><br><span class="line">apply <span class="attr">plugin:</span> <span class="string">&#x27;java&#x27;</span></span><br><span class="line">apply <span class="attr">plugin:</span> <span class="string">&#x27;eclipse&#x27;</span></span><br><span class="line">apply <span class="attr">plugin:</span> <span class="string">&#x27;org.springframework.boot&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 打包的类型为 jar，并指定了生成的打包的文件名称和版本</span></span><br><span class="line">jar &#123;</span><br><span class="line">    baseName = <span class="string">&#x27;springboot-test&#x27;</span></span><br><span class="line">    version = <span class="string">&#x27;1.0.0&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 指定编译 .java 文件的 JDK 版本</span></span><br><span class="line">sourceCompatibility = <span class="number">1.8</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 默认使用了 Maven 的中央仓库。这里改用自定义的镜像库</span></span><br><span class="line">repositories &#123;</span><br><span class="line">    <span class="comment">//mavenCentral()</span></span><br><span class="line">    maven &#123;</span><br><span class="line">        url <span class="string">&#x27;http://maven.aliyun.com/nexus/content/groups/public/&#x27;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 依赖关系</span></span><br><span class="line">dependencies &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 该依赖对于编译发行是必须的</span></span><br><span class="line">    compile(<span class="string">&#x27;org.springframework.boot:spring-boot-starter-web&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 添加 Thymeleaf 的依赖</span></span><br><span class="line">    compile(<span class="string">&#x27;org.springframework.boot:spring-boot-starter-thymeleaf&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 添加  Spring Security 依赖</span></span><br><span class="line">    compile(<span class="string">&#x27;org.springframework.boot:spring-boot-starter-security&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 添加 Spring Boot 开发工具依赖</span></span><br><span class="line">    <span class="comment">//compile(&quot;org.springframework.boot:spring-boot-devtools&quot;)</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 添加 Spring Data JPA 的依赖</span></span><br><span class="line">    compile(<span class="string">&#x27;org.springframework.boot:spring-boot-starter-data-jpa&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 添加 MySQL连接驱动 的依赖</span></span><br><span class="line">    compile(<span class="string">&#x27;mysql:mysql-connector-java:6.0.5&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 添加   Thymeleaf Spring Security 依赖，与 Thymeleaf 版本一致都是 3.x</span></span><br><span class="line">    compile(<span class="string">&#x27;org.thymeleaf.extras:thymeleaf-extras-springsecurity4:3.0.2.RELEASE&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 添加  Apache Commons Lang 依赖</span></span><br><span class="line">    compile(<span class="string">&#x27;org.apache.commons:commons-lang3:3.5&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 该依赖对于编译测试是必须的，默认包含编译产品依赖和编译时依</span></span><br><span class="line">    testCompile(<span class="string">&#x27;org.springframework.boot:spring-boot-starter-test&#x27;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="http://wajj.xin/2021/05/06/java/Gradle/Gradle/" title="Gradle" target="_blank" rel="external">http://wajj.xin/2021/05/06/java/Gradle/Gradle/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/feenammm" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/logo.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/feenammm" target="_blank"><span class="text-dark"></span><small class="ml-1x"></small></a></h3>
+        <div></div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/2021/05/07/%E6%8A%80%E5%B7%A7/JRebel/JRebel/" title="JRebel"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/2021/04/19/java/Quartz/Quartz/" title="Quartz"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+    <li class="toggle-toc">
+      <a class="toggle-btn collapsed" data-toggle="collapse" href="#collapseToc" aria-expanded="false" title="文章目录" role="button">
+        <span>[&nbsp;</span><span>文章目录</span>
+        <i class="text-collapsed icon icon-anchor"></i>
+        <i class="text-in icon icon-close"></i>
+        <span>]</span>
+      </a>
+    </li>
+    
+  </ul>
+  
+  
+  
+  <div class="bar-right">
+    
+  </div>
+  </div>
+</nav>
+  
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/feenammm" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+<script src="/js/plugin.min.js"></script>
+
+
+<script src="/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+
+
+
+
+   
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+   
+
+
+
+
+
+
+</body>
+</html>
